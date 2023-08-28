@@ -26,7 +26,7 @@ const AppNavbar = () => {
               {/* if user is logged in show  */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/'>
+                  <Nav.Link as={Link} to='/mydonations'>
                    MyDonations
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>

@@ -15,6 +15,7 @@ import { setContext } from '@apollo/client/link/context';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Donate from './pages/Donate';
+import MyDonattions from './pages/MyDonations';
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
     uri: '/graphql',
@@ -46,7 +47,9 @@ function App() {
                 <>
                     <Navbar />
                     <Switch>
-                       
+                    <Route exact path="/mydonations">
+                          < MyDonattions />
+                        </Route>
                         <Route exact path="/">
                           < Home />
                         </Route>
