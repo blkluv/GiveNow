@@ -4,14 +4,13 @@ const path = require('path');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+require('dotenv').config()
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_TEST);
 const app = express();
 const PORT = process.env.PORT || 4000;
-const bodyParser = require("body-parser")
 const cors = require('cors');
 
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+
 app.use(cors());
 // GraphQL setup
 
