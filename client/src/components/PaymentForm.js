@@ -8,6 +8,7 @@ import axios from "axios"
 
 
 
+
 const CARD_OPTIONS = {
 	iconStyle: "solid",
 	style: {
@@ -28,7 +29,9 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm() {
+export default function PaymentForm(props) {
+
+  
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
 const elements = useElements()
@@ -44,12 +47,13 @@ if(!error){
   try {
     const {id} = paymentMethod
     const response = await axios.post("http://localhost:4000/payment", {
-      amount: 1100,
+      amount: props.amount,
       id: id
     })
     if(response.data.success){
       console.log("sucess payment")
       setSuccess(true)
+      
     }
   } catch (error) {
     console.log("error", error)
@@ -73,7 +77,7 @@ else {
 </form>
 :
 <div>
-  <h2>You Just bought a sweet spatula this is the best thing ever</h2>
+  <h2>You Just bought {props.itemName} this is the best thing ever</h2>
 </div>
 }
 </>

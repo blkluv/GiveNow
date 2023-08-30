@@ -1,0 +1,11 @@
+.OrganizationsDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+    width: 50vh;
+    height: 35vh;
+}

@@ -14,13 +14,15 @@ const cors = require('cors');
 app.use(cors());
 // GraphQL setup
 
-const apolloServer = new ApolloServer({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
 
-apolloServer.applyMiddleware({ app });
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -30,11 +32,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
-
-// Serve your GraphQL API from a specific route
-app.use('/graphql', (req, res, next) => {
-  // Your GraphQL route handling logic here
-});
 
 
 // Serve the React app's HTML file
@@ -74,15 +71,13 @@ app.post("/payment", cors(), async (req,res) => {
 }
 )
 
-app.post('/stripe-webhook', async (req, res) => {
-  const event = req.body;
-
-  if (event.type === 'payment_intent.succeeded') {
-    // Payment succeeded, initiate redirection to success page
-    res.json({ received: true }); // Send a response to acknowledge receipt of the webhook event
-  }
-});
-// Start server
+const startApolloServer = async (typeDefs, resolvers) => {
+  await server.start();
+  server.applyMiddleware({ app });
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });
+};
+
+// Call the async function to start the server
+  startApolloServer(typeDefs, resolvers);

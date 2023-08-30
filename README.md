@@ -14,24 +14,3 @@ User Profiles: Allow users to create profiles with their payment information sec
 Donation History: Users can view their donation history, including the charities/causes they've supported and the total amount donated.
 
 Social Sharing: Implement social sharing features, so users can share their donations on social media, encouraging others to donate to the same cause.
-
-Technical Stack:
-
-Frontend: Use React for building the user interface.
-Backend: Use Node.js with Express.js for creating the server.
-Database: MongoDB or any database of your choice to store user profiles, charities, and donation records.
-Payment Integration: Integrate Stripe for processing payments.
-Authentication: Implement user authentication (e.g., using JWT) for user profiles.
-
-//
-Stripe Integration: Showcase your ability to integrate Stripe's payment processing into the application securely.
-
-Responsive Design: Ensure that the app looks good on various screen sizes, including mobile devices.
-
-User Profiles: Highlight your skills in creating user profiles with secure payment information storage.
-
-Donation History: Show your ability to manage and display user donation history.
-
-Error Handling: Implement proper error handling and validation for payment processing and user input.
-
-Security: Emphasize the security measures you've taken to protect user data and payment information. -->
