@@ -1,67 +1,35 @@
-
-//import necasary tools from react/apollo/pages
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-    createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import StripeContainer from "./components/StripeContainer";
+import test from './assets/test.png'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Success from "./pages/success";
+export default function App() {
+  
+const[showItem, setShowItem] = useState(false)
 
 
-import Home from './pages/Home';
-import Navbar from './components/Navbar';
-import Donate from './pages/Donate';
-import MyDonattions from './pages/MyDonations';
-// Construct our main GraphQL API endpoint
-const httpLink = createHttpLink({
-    uri: '/graphql',
-});
-
-// Construct request middleware that will attach the JWT token to every request as an `authorization` header
-const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('id_token');
-    // return the headers to the context so httpLink can read them
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : '',
-        },
-    };
-});
-
-const client = new ApolloClient({
-    // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-});
-
-function App() {
-    return (
-        <ApolloProvider client={client}>
-            <Router>
-                <>
-                    <Navbar />
-                    <Switch>
-                    <Route exact path="/mydonations">
-                          < MyDonattions />
-                        </Route>
-                        <Route exact path="/">
-                          < Home />
-                        </Route>
-                        <Route exact path="/donate">
-                          < Donate />
-                        </Route>
-                        <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
-                    </Switch>
-                </>
-            </Router>
-        </ApolloProvider>
-    );
+return (
+  <Router>
+    <div className="App">
+      <h1>The spatula store</h1>
+      <Switch>
+        <Route path="/success" component={Success} />
+        <Route path="/">
+          {showItem ? (
+            <StripeContainer />
+          ) : (
+            <>
+              <h3>$11.00</h3>
+              <img src={test} alt="test" />
+              <button onClick={() => setShowItem(true)}>
+                Purchase spatula
+              </button>
+            </>
+          )}
+        </Route>
+      </Switch>
+    </div>
+  </Router>
+);
 }
-
-export default App;
