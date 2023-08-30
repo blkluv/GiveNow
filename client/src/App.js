@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Organization from "./components/Organization";
 import Success from "./pages/success";
 import Home from "./pages/Home";
@@ -42,21 +42,20 @@ return (
     <div className="App">
       <Navbar />
      
-   <Switch>
+  <Routes>
 
-      <Route exact path="/success" >
-        <Success/>
-         </Route>
-        <Route exact path="/" > 
-        <Home/>
-        </Route>
-<Route exact path="/donate" > 
-<Donate/>
-</Route>
+      <Route path="/success" element={<Success/>} />
+      
+        <Route exact path="/" element={<Home/>} /> 
+        
+      
+<Route exact path="/donate" element={<Donate/>} /> 
 
+
+</Routes>
 
           
-</Switch>
+
       
     </div>
   </Router>

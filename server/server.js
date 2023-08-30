@@ -21,11 +21,8 @@ const server = new ApolloServer({
 });
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 // Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Serve static files if in production
@@ -34,10 +31,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-// Serve the React app's HTML file
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+//may need this later for production
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 app.post("/payment", cors(), async (req,res) => {
   let {amount , id } = req.body
   try {
@@ -74,10 +74,14 @@ app.post("/payment", cors(), async (req,res) => {
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
-};
-
+  
+  db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    })
+  })
+  };
+  
 // Call the async function to start the server
   startApolloServer(typeDefs, resolvers);

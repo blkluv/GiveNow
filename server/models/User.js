@@ -18,6 +18,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    donations:{
+      type: String,
+      
+    }
 
   },
   // set this to use virtual below
