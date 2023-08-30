@@ -18,11 +18,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    donations:{
-      type: String,
-      
-    }
-
+    donations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Donation',
+      },
+    ],
   },
   // set this to use virtual below
   {
