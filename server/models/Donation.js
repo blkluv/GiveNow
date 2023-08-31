@@ -14,7 +14,7 @@ const donationSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    organizationId: { // Reference to the Organization schema
+    organization: { // Reference to the Organization schema
       type: Schema.Types.ObjectId,
       ref: 'Organization',
       required: true,
