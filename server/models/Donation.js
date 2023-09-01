@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const dateFormat = require('../utils/dateFormat');
 const donationSchema = new Schema(
   {
     userId: {
@@ -13,6 +13,7 @@ const donationSchema = new Schema(
     date: {
       type: Date,
       default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
     },
     organization: { // Reference to the Organization schema
       type: Schema.Types.ObjectId,
