@@ -2,7 +2,9 @@ const {  User, Donation, Organization } = require('../models');
 const { signToken } = require('../utils/auth');
 // Define the query and mutation functionality to work with the Mongoose models.
 const resolvers = {
+  
   Query: {
+
     organizations: async () => {
       try {
         const orgData = await Organization.find().select('-__v -password');
@@ -15,8 +17,8 @@ const resolvers = {
       try {
         const donationData = await Donation.find()
           .select('-__v -password')
-          .populate('organization'); // Make sure 'organization' matches the field name in your Donation schema
-        
+          .populate('organization')
+          .populate('userId');
         return donationData;
       } catch (err) {
         throw new Error('Failed to fetch donations');
@@ -79,6 +81,7 @@ const resolvers = {
       },
       makeDonation: async (parent, { amount, date, organization }, context) => {
         // Check if the user is authenticated (optional)
+        
         if (context.user) {
           // If the user is logged in, you can access their ID with context.user._id
           const userId = context.user._id;
@@ -100,6 +103,18 @@ const resolvers = {
           const org = await Organization.findById(organization);
           if (org) {
             org.amountraised += amount;
+            // Add the donation amount to the top donation fields
+            if (amount > org.topDonation1) {
+              org.topDonation3 = org.topDonation2;
+              org.topDonation2 = org.topDonation1;
+              org.topDonation1 = amount;
+            } else if (amount > org.topDonation2) {
+              org.topDonation3 = org.topDonation2;
+              org.topDonation2 = amount;
+            } else if (amount > org.topDonation3) {
+              org.topDonation3 = amount;
+            }
+      
             await org.save();
           }
       
@@ -116,12 +131,26 @@ const resolvers = {
           const org = await Organization.findById(organization);
           if (org) {
             org.amountraised += amount;
+            // Add the donation amount to the top donation fields
+            if (amount > org.topDonation1) {
+              org.topDonation3 = org.topDonation2;
+              org.topDonation2 = org.topDonation1;
+              org.topDonation1 = amount;
+            } else if (amount > org.topDonation2) {
+              org.topDonation3 = org.topDonation2;
+              org.topDonation2 = amount;
+            } else if (amount > org.topDonation3) {
+              org.topDonation3 = amount;
+            }
+      
             await org.save();
           }
       
           return donation;
         }
       },
+      
+      
       
       
       

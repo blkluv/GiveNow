@@ -6,27 +6,31 @@ const typeDefs = gql`
     username: String!
     email: String!
     donations: [Donation]
+    topdonor: Boolean
   }
 
   type Donation {
     _id: ID!
     amount: Int!
     date: String!
-    user: User
-    organization: Organization
+    userId: User
+    organization: Organization!
   }
  type Organization{
  _id: ID!
  name: String!
  description: String!
  amountraised: Int
+ topDonation1: Int
+ topDonation2: Int
+ topDonation3: Int
  }
   type Query {
+ 
     me: User
     users: [User]
     donations: [Donation]
     organizations: [Organization]
-    
   }
 
   type Auth {

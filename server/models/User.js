@@ -24,6 +24,10 @@ const userSchema = new Schema(
         ref: 'Donation',
       },
     ],
+    topdonor: {
+      type: Boolean,
+      default: false
+    }
   },
   // set this to use virtual below
   {
