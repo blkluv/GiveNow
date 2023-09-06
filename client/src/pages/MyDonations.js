@@ -11,7 +11,7 @@ const MyDonations = () => {
     if (loading) {
       return <p>Loading...</p>; // You can display a loading indicator here
     }
-console.log(data.me.donations,"data vovejabskjdbasd")
+
     // Check if data.me exists before accessing its properties
     if (data && data.me) {
       return (
@@ -28,7 +28,10 @@ console.log(data.me.donations,"data vovejabskjdbasd")
             {/* Render donations data, you might want to map through it */}
             <ul>
               {data.me.donations.map((donation) => (
-                <li key={donation._id}>{/* Render donation details here */}</li>
+                <div key={donation._id}>
+                <li>amount: {(donation.amount/100).toFixed(2)}$</li>
+                <li>Organizaton: {donation.organization.name}</li>
+                </div>
               ))}
             </ul>
           </div>

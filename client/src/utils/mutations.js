@@ -24,3 +24,11 @@ export const ADD_USER = gql`
   }
 `;
 
+export const MAKE_DONATION = gql`
+mutation makeDonation($amount: Int!, $organization: ID!) {
+  makeDonation(amount: $amount, organization: $organization) {
+    _id
+    amount
+  }
+}
+`;

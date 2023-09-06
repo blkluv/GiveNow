@@ -5,7 +5,8 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import axios from "axios"
-
+import { useMutation } from "@apollo/client";
+import { MAKE_DONATION } from "../utils/mutations";
 
 
 
@@ -30,8 +31,7 @@ const CARD_OPTIONS = {
 }
 
 export default function PaymentForm(props) {
-
-  
+  const [makeDonation] = useMutation(MAKE_DONATION);
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
 const elements = useElements()
@@ -45,14 +45,27 @@ const handleSubmit = async (e) => {
 
 if(!error){
   try {
+  
     const {id} = paymentMethod
     const response = await axios.post("http://localhost:4000/payment", {
       amount: props.amount,
+      description: props.description,
       id: id
     })
     if(response.data.success){
       
       console.log("sucess payment")
+      const mutationResponse = await makeDonation({
+
+        variables: {
+            organization: props.OrgID,
+            amount: props.amount,
+          
+
+        },
+
+    });
+    console.log(mutationResponse, "here")
       setSuccess(true)
       
     }
@@ -78,7 +91,7 @@ else {
 </form>
 :
 <div>
-  <h2>You Just bought {props.itemName} this is the best thing ever</h2>
+  <h2>You Just Donated {(props.amount /100).toFixed(2) }$ to {props.itemName} thank you so much!</h2>
 </div>
 }
 </>
