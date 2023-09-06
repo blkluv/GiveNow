@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     donations: [Donation]
-    topdonor: Boolean
+    topdoner: Boolean
   }
 
   type Donation {

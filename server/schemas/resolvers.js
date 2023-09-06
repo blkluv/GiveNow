@@ -81,9 +81,7 @@ const resolvers = {
       },
       makeDonation: async (parent, { amount, date, organization }, context) => {
         // Check if the user is authenticated (optional)
-        
         if (context.user) {
-          // If the user is logged in, you can access their ID with context.user._id
           const userId = context.user._id;
       
           // Create the donation with the user ID and organization
@@ -94,26 +92,28 @@ const resolvers = {
             userId,
           });
       
-          // Update the user's donations field
-          await User.findByIdAndUpdate(userId, {
-            $push: { donations: donation._id },
-          });
-      
           // Update the organization's amountraised field
           const org = await Organization.findById(organization);
           if (org) {
             org.amountraised += amount;
-            // Add the donation amount to the top donation fields
-            if (amount > org.topDonation1) {
-              org.topDonation3 = org.topDonation2;
-              org.topDonation2 = org.topDonation1;
-              org.topDonation1 = amount;
-            } else if (amount > org.topDonation2) {
-              org.topDonation3 = org.topDonation2;
-              org.topDonation2 = amount;
-            } else if (amount > org.topDonation3) {
-              org.topDonation3 = amount;
-            }
+      
+            // Retrieve the top three donations for the organization
+            const topDonations = await Donation.find({ organization })
+              .sort({ amount: -1 }) // Sort in descending order
+              .limit(3); // Limit to the top three donations
+      
+            // Update the top donor field for all users
+            const topDonorIds = topDonations.map((don) => don.userId.toString());
+            await User.updateMany(
+              { _id: { $in: topDonorIds }, organization }, // Update top donors within the organization
+              { $set: { topdoner: true } } // Set topdoner to true for top donors
+            );
+      
+            // Set topdoner to false for all other users in the organization
+            await User.updateMany(
+              { _id: { $nin: topDonorIds }, organization }, // Exclude top donors
+              { $set: { topdoner: false } } // Set topdoner to false
+            );
       
             await org.save();
           }
@@ -131,26 +131,12 @@ const resolvers = {
           const org = await Organization.findById(organization);
           if (org) {
             org.amountraised += amount;
-            // Add the donation amount to the top donation fields
-            if (amount > org.topDonation1) {
-              org.topDonation3 = org.topDonation2;
-              org.topDonation2 = org.topDonation1;
-              org.topDonation1 = amount;
-            } else if (amount > org.topDonation2) {
-              org.topDonation3 = org.topDonation2;
-              org.topDonation2 = amount;
-            } else if (amount > org.topDonation3) {
-              org.topDonation3 = amount;
-            }
-      
             await org.save();
           }
       
           return donation;
         }
       },
-      
-      
       
       
       

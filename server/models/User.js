@@ -24,7 +24,7 @@ const userSchema = new Schema(
         ref: 'Donation',
       },
     ],
-    topdonor: {
+    topdoner: {
       type: Boolean,
       default: false
     }
