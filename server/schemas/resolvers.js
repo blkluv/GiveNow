@@ -59,18 +59,28 @@ const resolvers = {
   
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
+        const userId = context.user._id;
+    
+        console.log('Authenticated User ID:', userId);
+    
+        // Retrieve the authenticated user's data including donations and organization data
+        const userData = await User.findById(userId)
           .select('-__v -password')
           .populate({
             path: 'donations',
-            populate: { path: 'organization' }, // Populate the organization field within donations
+            populate: { path: 'organization' },
           });
-        
+    
+        console.log('User Data with Donations:', userData);
+    
         return userData;
       }
     
       throw new AuthenticationError('Not logged in');
     }
+    
+    
+    
     
     
 },
@@ -109,7 +119,9 @@ const resolvers = {
             organization,
             userId,
           });
-      
+          await User.findByIdAndUpdate(userId, {
+            $push: { donations: donation._id },
+          });
           // Update the organization's amountraised field
           const org = await Organization.findById(organization);
           if (org) {
