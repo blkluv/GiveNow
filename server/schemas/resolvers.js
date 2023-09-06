@@ -2,7 +2,25 @@ const {  User, Donation, Organization } = require('../models');
 const { signToken } = require('../utils/auth');
 // Define the query and mutation functionality to work with the Mongoose models.
 const resolvers = {
-  
+  Organization: {
+    topDonors: async (parent, args, context) => {
+      const organizationId = parent._id;
+
+      // Retrieve the top three donations for the organization
+      const topDonations = await Donation.find({ organization: organizationId })
+        .sort({ amount: -1 })
+        .limit(3)
+        .populate('userId'); // Populate the user information
+
+      // Transform the data to match the UserDonation type
+      const topDonors = topDonations.map((donation) => ({
+        user: donation.userId,
+        donationAmount: donation.amount,
+      }));
+
+      return topDonors;
+    },
+  },
   Query: {
 
     organizations: async () => {

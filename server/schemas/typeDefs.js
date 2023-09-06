@@ -16,6 +16,12 @@ const typeDefs = gql`
     userId: User
     organization: Organization!
   }
+
+  type UserDonation {
+    user: User
+    donationAmount: Int
+  }
+
  type Organization{
  _id: ID!
  name: String!
@@ -24,6 +30,7 @@ const typeDefs = gql`
  topDonation1: Int
  topDonation2: Int
  topDonation3: Int
+ topDonors: [UserDonation]  
  }
   type Query {
  
