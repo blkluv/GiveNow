@@ -3,8 +3,32 @@ import auth from '../utils/auth';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 
+const styles = {
+  donationsDivStyle: {
+    background: 'grey',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+   
+    border: '1px solid black'
+  },
+  donationStyle: {
+    with: '25vh',
+    height: '25vh',
+    border: '1px solid black',
+    margin: '1%',
+    padding: '1%'
+  }
+};
 const MyDonations = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data, refetch } = useQuery(GET_ME, {
+    pollInterval: 60000, // Poll the server every 60 seconds (adjust this interval as needed)
+  });
+
+  // Function to manually trigger a data refresh
+  const refreshData = () => {
+    refetch();
+  };
 
   if (auth.loggedIn()) {
     // Check if data is still loading
@@ -16,6 +40,7 @@ const MyDonations = () => {
     if (data && data.me) {
       return (
         <div>
+          <button onClick={refreshData}>Refresh Data</button>
           <h1>My donations</h1>
           <div>
             <h2>userinfo</h2>
@@ -26,14 +51,19 @@ const MyDonations = () => {
           <div>
             <h2>Donations</h2>
             {/* Render donations data, you might want to map through it */}
-            <ul>
+           <div style={styles.donationsDivStyle}>
               {data.me.donations.map((donation) => (
-                <div key={donation._id}>
+                
+                <div key={donation._id} style={styles.donationStyle}>
+                   <ul>
+                   <li>Organizaton: {donation.organization.name}</li>
                 <li>amount: {(donation.amount/100).toFixed(2)}$</li>
-                <li>Organizaton: {donation.organization.name}</li>
+                
+                </ul>
                 </div>
               ))}
-            </ul>
+              </div>
+         
           </div>
         </div>
       );

@@ -29,6 +29,7 @@ const Organization = () => {
 const owlhouseDescription = "Department for saving the owls!"
 const catcorpDescription = "Corp for saving the cats!"
 const catcorpID = "64f7c7f25cec709320224369"
+const owlhouseID ="64f91cb13907b04fde495fbf"
 
   return (
     <div>
@@ -39,7 +40,7 @@ const catcorpID = "64f7c7f25cec709320224369"
           <h2>Owl House</h2>
           <h3>Department for saving the owls!</h3>
           <img src={test} alt="test" />
-          <button onClick={() => setItem("Owl House", 1100, owlhouseDescription)}>
+          <button onClick={() => setItem("Owl House", 1100, owlhouseDescription, owlhouseID)}>
             Donate 11.00 $ to Owl House
           </button>
           <div>
@@ -49,7 +50,7 @@ const catcorpID = "64f7c7f25cec709320224369"
               value={customAmount}
               onChange={handleCustomAmountChange}
             />
-            <button onClick={ () => setItem("Owl House", parseFloat(customAmount) * 100, owlhouseDescription)}>Set Custom Amount</button>
+            <button onClick={ () => setItem("Owl House", parseFloat(customAmount) * 100, owlhouseDescription, owlhouseID)}>Set Custom Amount</button>
           </div>
           {/*  */}
           <h2>Cat Corp</h2>
