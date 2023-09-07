@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 
 const styles = {
   donationsDivStyle: {
-    background: 'grey',
+    background: 'white',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -18,6 +18,9 @@ const styles = {
     border: '1px solid black',
     margin: '1%',
     padding: '1%'
+  },
+  list: {
+    listStyleType: "none",
   }
 };
 const MyDonations = () => {
@@ -38,6 +41,7 @@ const MyDonations = () => {
 
     // Check if data.me exists before accessing its properties
     if (data && data.me) {
+      //console.log(data.me,"------------------------------------me--------------------")
       return (
         <div>
           <button onClick={refreshData}>Refresh Data</button>
@@ -55,9 +59,10 @@ const MyDonations = () => {
               {data.me.donations.map((donation) => (
                 
                 <div key={donation._id} style={styles.donationStyle}>
-                   <ul>
+                   <ul style={styles.list}>
                    <li>Organizaton: {donation.organization.name}</li>
                 <li>amount: {(donation.amount/100).toFixed(2)}$</li>
+                <li>Date: {donation.date}</li>
                 
                 </ul>
                 </div>
