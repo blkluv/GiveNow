@@ -27,14 +27,14 @@ const Organization = () => {
       name: "Owl House",
       description: "Department for saving the owls!",
       id: "64f91cb13907b04fde495fbf",
-      defaultAmount: 1100,
+     
       image: test,
     },
     {
       name: "Cat Corp",
       description: "Corp to save the cats!",
       id: "64f7c7f25cec709320224369",
-      defaultAmount: 1000,
+  
       image: test2,
     },
     // Add more organizations as needed
@@ -57,22 +57,36 @@ const Organization = () => {
       ) : (
         <div className="OrganizationsDiv">
           {organizations.map((org) => (
-            <div key={org.id}>
+            <div className="singleOrg" key={org.id}>
               <h2>{org.name}</h2>
               <h3>{org.description}</h3>
               <img alt={org.name} src={org.image} />
               {/* Use the default amount for donation */}
-              <button onClick={() => setItem(org.name, org.defaultAmount, org.description, org.id)}>
-                Donate ${(org.defaultAmount / 100).toFixed(2)} to {org.name}
-              </button>
+              <h3>Donate to {org.name}</h3>
+              <div className="preAmountDiv">
+                <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 5.00 } }, org)}>
+                  ${(5.00).toFixed(2)}
+                </button>
+                <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 10.00 } }, org)}>
+                  ${(10.00).toFixed(2)}
+                </button>
+                <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 20.00 } }, org)}>
+                  ${(20.00).toFixed(2)}
+                </button>
+                <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 50.00 } }, org)}>
+                  ${(50.00).toFixed(2)}
+                </button>
+              </div>
               <div>
-                <label>Custom Amount: $</label>
+                <span>$</span>
                 <input
                   type="number"
-                  value={customAmounts[org.id] || ''} // Use customAmounts dictionary for the specific organization
-                  onChange={(event) => handleCustomAmountChange(event, org)} // Pass org as a parameter
+                  id={org.id}
+                  value={customAmounts[org.id] || ''}
+                  onChange={(event) => handleCustomAmountChange(event, org)}
                 />
-                <button onClick={() => setItem(org.name, customAmounts[org.id] * 100, org.description, org.id)}>Donate Custom Amount</button>
+                <span>USD</span>
+                <button className="button2" onClick={() => setItem(org.name, customAmounts[org.id] * 100, org.description, org.id)}>GiveNow</button>
               </div>
             </div>
           ))}

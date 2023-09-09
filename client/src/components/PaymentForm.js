@@ -31,6 +31,7 @@ const CARD_OPTIONS = {
 }
 
 export default function PaymentForm(props) {
+  // console.log(props,"----------HERE---------------")
   const [makeDonation] = useMutation(MAKE_DONATION);
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
@@ -87,7 +88,7 @@ else {
     <CardElement options={CARD_OPTIONS}/>
   </div>
 </fieldset>
-<button>Pay</button>
+<button className="button2">Pay</button>
 </form>
 :
 <div>
