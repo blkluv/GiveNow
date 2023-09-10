@@ -3,15 +3,17 @@ import StripeContainer from "../components/StripeContainer";
 import test from '../assets/test.jpg'
 import test2 from '../assets/test2.jpg'
 import '../assets/styles/Organization.css'
+import SingleOrg from "./SingleOrg";
 
 const Organization = () => {
+  const [modalShow, setModalShow] = React.useState(false);
   const [showItem, setShowItem] = useState(false);
   const [amount, setAmount] = useState(0);
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [OrgID, setOrgID] = useState("");
   const [customAmounts, setCustomAmounts] = useState({}); // State to store custom amounts
-
+  const [orgdata, setorgdata] = useState("");
   // Function to set both amount, itemName, itemDescription, and OrgID
   const setItem = (name, price, description, orgID) => {
     setShowItem(true);
@@ -55,13 +57,18 @@ const Organization = () => {
       {showItem ? (
         <StripeContainer amount={amount} itemName={itemName} description={itemDescription} OrgID={OrgID} />
       ) : (
+        
         <div className="OrganizationsDiv">
+           <SingleOrg
+        show={modalShow}
+      org={orgdata}
+        onHide={() => setModalShow(false)}
+      />
           {organizations.map((org) => (
             <div className="singleOrg" key={org.id}>
               <h2>{org.name}</h2>
               <h3>{org.description}</h3>
-              <img alt={org.name} src={org.image} />
-              {/* Use the default amount for donation */}
+              <img alt={org.name} src={org.image} onClick={() => { setModalShow(true); setorgdata(org) }}/>
               <h3>Donate to {org.name}</h3>
               <div className="preAmountDiv">
                 <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 5.00 } }, org)}>
