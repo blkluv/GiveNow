@@ -22,7 +22,15 @@ const resolvers = {
     },
   },
   Query: {
-
+org: async (parent, args) => {
+  try {
+  const orgId = args.orgId
+    const OrgData = await Organization.findById(orgId)
+    return OrgData
+  } catch (error) {
+    throw new Error('Failed to get Org');
+  }
+},
     organizations: async () => {
       try {
         const orgData = await Organization.find().select('-__v -password');

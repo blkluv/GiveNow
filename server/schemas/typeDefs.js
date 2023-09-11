@@ -33,7 +33,7 @@ const typeDefs = gql`
  topDonors: [UserDonation]  
  }
   type Query {
- 
+    org(orgId: ID!): Organization 
     me: User
     users: [User]
     donations: [Donation]

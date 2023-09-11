@@ -19,3 +19,19 @@ export const GET_ME = gql`
   }
 `;
 
+export const GET_ORGANIZATION = gql`
+query Query($orgId: ID!) {
+  org(orgId: $orgId) {
+    amountraised
+    _id
+    description
+    name
+    topDonors {
+      user {
+        username
+      }
+      donationAmount
+    }
+  }
+}
+`;
