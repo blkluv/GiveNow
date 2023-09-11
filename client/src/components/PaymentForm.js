@@ -31,53 +31,58 @@ const CARD_OPTIONS = {
 }
 
 export default function PaymentForm(props) {
-  // console.log(props,"----------HERE---------------")
+  console.log(props,"----------HERE---------------")
   const [makeDonation] = useMutation(MAKE_DONATION);
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
 const elements = useElements()
 
 const handleSubmit = async (e) => {
-  e.preventDefault()
-  const {error, paymentMethod} = await stripe.createPaymentMethod({
+  e.preventDefault();
+  console.log("Handling form submission...");
+
+  const { error, paymentMethod } = await stripe.createPaymentMethod({
     type: "card",
-    card: elements.getElement(CardElement)
-  })
+    card: elements.getElement(CardElement),
+  });
 
-if(!error){
-  try {
-  
-    const {id} = paymentMethod
-    const response = await axios.post("http://localhost:4000/payment", {
-      amount: props.amount,
-      description: props.description,
-      id: id
-    })
-    if(response.data.success){
-      
-      console.log("sucess payment")
-      const mutationResponse = await makeDonation({
+  console.log("Stripe payment method created:", paymentMethod);
 
-        variables: {
+  if (!error) {
+    try {
+      const { id } = paymentMethod;
+      console.log("Stripe payment method ID:", id);
+
+      const response = await axios.post("http://localhost:4000/payment", {
+        amount: props.amount,
+        description: props.description,
+        id: id,
+      });
+
+      console.log("Payment API response:", response.data);
+
+      if (response.data.success) {
+        console.log("Successful payment");
+        const mutationResponse = await makeDonation({
+          variables: {
             organization: props.OrgID,
             amount: props.amount,
-          
+          },
+        });
 
-        },
+        console.log("Mutation response:", mutationResponse);
 
-    });
-    console.log(mutationResponse, "here")
-      setSuccess(true)
-      
+        setSuccess(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.log("error", error)
+  } else {
+    console.error("Stripe error:", error);
+    console.log("Stripe error message:", error.message);
   }
-}
-else {
-  console.log(error.message)
-}
-}
+};
+
 
   return (
 <>

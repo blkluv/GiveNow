@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import StripeContainer from "../components/StripeContainer";
 import test from '../assets/test.jpg'
 import test2 from '../assets/test2.jpg'
+import test3 from '../assets/test3.JPG'
 import '../assets/styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 
@@ -26,17 +27,21 @@ const Organization = () => {
   // Define an array of organizations with their details
   const organizations = [
     {
+      name: "Kaikane Lacno",
+      description: "broke as fuck",
+      id: "64fe7d5f8b100153d5625efc",
+      image: test3,
+    },
+    {
       name: "Owl House",
       description: "Department for saving the owls!",
       id: "64f91cb13907b04fde495fbf",
-     
       image: test,
     },
     {
       name: "Cat Corp",
       description: "Corp to save the cats!",
       id: "64f7c7f25cec709320224369",
-  
       image: test2,
     },
     // Add more organizations as needed

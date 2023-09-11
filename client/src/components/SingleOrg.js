@@ -60,14 +60,16 @@ function SingleOrg(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Amount Raised {organization.amountraised}</h4>
+      <h4>Amount Raised: {(organization.amountraised / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h4>
+
         <p>{organization.description}</p>
         <h3>Top Donators </h3>
         <ul>
         {organization.topDonors.map((donor, index) =>(
           <li key={`donor_${index}`}>
-            {donor.user ? donor.user.username || "Anon" : "Anon"}
-            {donor.donationAmount}
+            {donor.user ? donor.user.username || "Anon" : "Anon"} &nbsp;
+          {(donor.donationAmount / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+
           </li>
         ))}
         </ul>
