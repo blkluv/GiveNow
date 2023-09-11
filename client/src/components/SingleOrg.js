@@ -3,7 +3,13 @@ import Modal from 'react-bootstrap/Modal';
 import React, { useEffect } from 'react';
 import { GET_ORGANIZATION } from '../utils/queries';
 import { useQuery } from '@apollo/client';
-
+import Spinner from 'react-bootstrap/Spinner';
+const divStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
 function SingleOrg(props) {
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { orgId: props.org.id },
@@ -18,7 +24,12 @@ function SingleOrg(props) {
   }, [props.show, refetch]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return  (  <div style={divStyle}>
+    <Spinner animation="border" role="status" variant="primary">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  </div>
+    )
   }
 
   // Check if the modal is closed
@@ -28,11 +39,14 @@ function SingleOrg(props) {
 
   // Handle errors
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <div style={divStyle}>
+    <p style={{color: 'red'}}>Error: {error.message}</p>
+    </div>
+    )
   }
 
-  const organization = data?.org; // Assuming your query returns an object with an 'org' field
-console.log(organization,"------here-----")
+  const organization = data?.org; 
   return (
     <Modal
       {...props}
