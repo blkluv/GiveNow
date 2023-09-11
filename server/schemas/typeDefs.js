@@ -35,6 +35,7 @@ const typeDefs = gql`
   type Query {
     org(orgId: ID!): Organization 
     me: User
+    user(userId: ID!): User
     users: [User]
     donations: [Donation]
     organizations: [Organization]

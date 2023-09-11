@@ -22,6 +22,22 @@ const resolvers = {
     },
   },
   Query: {
+
+    user: async (parent, args) => {
+      try {
+      const userId = args.userId
+        const userData = await User.findById(userId)
+        .populate({
+          path: 'donations',
+          populate: { path: 'organization' }, // Populate the organization field within donations
+        });
+        
+        return userData
+      } catch (error) {
+        throw new Error('Failed to get User');
+      }
+    },
+
 org: async (parent, args) => {
   try {
   const orgId = args.orgId

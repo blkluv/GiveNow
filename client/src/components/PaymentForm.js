@@ -31,7 +31,7 @@ const CARD_OPTIONS = {
 }
 
 export default function PaymentForm(props) {
-  console.log(props,"----------HERE---------------")
+  //console.log(props,"----------HERE---------------")
   const [makeDonation] = useMutation(MAKE_DONATION);
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()

@@ -11,6 +11,7 @@ const divStyle = {
   transform: 'translate(-50%, -50%)',
 };
 function SingleOrg(props) {
+  //console.log(props,"hi kai")
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { orgId: props.org.id },
     skip: !props.show, // Skip the query if the modal is closed
@@ -22,7 +23,7 @@ function SingleOrg(props) {
       refetch(); // Refetch the query when the modal is opened
     }
   }, [props.show, refetch]);
-
+// show spinner if loading
   if (loading) {
     return  (  <div style={divStyle}>
     <Spinner animation="border" role="status" variant="primary">
@@ -47,6 +48,7 @@ function SingleOrg(props) {
   }
 
   const organization = data?.org; 
+  // use info from props and data from query
   return (
     <Modal
       {...props}
@@ -56,14 +58,14 @@ function SingleOrg(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {organization.name}
+          {props.org.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <h4>Amount Raised: {(organization.amountraised / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h4>
 
-        <p>{organization.description}</p>
-        <h3>Top Donators </h3>
+        <p>{props.org.description}</p>
+        <h4>Top Donators </h4>
         <ul>
         {organization.topDonors.map((donor, index) =>(
           <li key={`donor_${index}`}>
@@ -77,7 +79,7 @@ function SingleOrg(props) {
       </Modal.Body>
       <Modal.Footer>
        
-        {/* You can render the list of top donors here */}
+      
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
