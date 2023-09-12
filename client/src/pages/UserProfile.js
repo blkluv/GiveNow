@@ -57,9 +57,9 @@ const UserProfile = () => {
           </div>
           <div>
             <h2>Donations</h2>
-            {/* Render donations data, you might want to map through it
+            {/* Render donations data, you might want to map through it */}
            <div style={styles.donationsDivStyle}>
-              {data.donations.map((donation) => (
+              {data.user.donations.map((donation) => (
                 
                 <div key={donation._id} style={styles.donationStyle}>
                    <ul style={styles.list}>
@@ -70,7 +70,7 @@ const UserProfile = () => {
                 </ul>
                 </div>
               ))}
-              </div> */}
+              </div>
          
           </div>
         </div>
