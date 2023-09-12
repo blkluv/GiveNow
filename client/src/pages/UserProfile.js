@@ -1,7 +1,8 @@
 import React from 'react';
-import auth from '../utils/auth';
-import { GET_ME } from '../utils/queries';
+
+import { GET_USER } from '../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
 const styles = {
   donationsDivStyle: {
@@ -23,8 +24,9 @@ const styles = {
     listStyleType: "none",
   }
 };
-const MyDonations = () => {
-  const { loading, data, refetch } = useQuery(GET_ME, {
+const UserProfile = () => {
+  const { loading, data, refetch } = useQuery(GET_USER, {
+    variables: { userId: "64fec926597efe51aef839aa"},
     pollInterval: 60000, // Poll the server every 60 seconds (adjust this interval as needed)
   });
 
@@ -33,31 +35,31 @@ const MyDonations = () => {
     refetch();
   };
 
-  if (auth.loggedIn()) {
+
     // Check if data is still loading
     if (loading) {
       return <p>Loading...</p>; // You can display a loading indicator here
     }
 
     // Check if data.me exists before accessing its properties
-    if (data && data.me) {
-      //console.log(data.me,"------------------------------------me--------------------")
+   if(data){
+      console.log(data,"------------------------------------me--------------------")
       return (
         <div>
           <button onClick={refreshData}>Refresh Data</button>
           <h1>My donations</h1>
           <div>
             <h2>userinfo</h2>
-            <p>username: {data.me.username}</p>
-            <p>email: {data.me.email}</p>
-            <p>topdoner: {data.me.topdoner == true ? "You are a Top Donor!" : "Not"}</p>
+            <p>username: {data.user.username}</p>
+            <p>email: {data.user.email}</p>
+            <p>topdoner: {data.user.topdoner == true ? `${data.user.username} is a Top Donor!` : "Not"}</p>
 
           </div>
           <div>
             <h2>Donations</h2>
-            {/* Render donations data, you might want to map through it */}
+            {/* Render donations data, you might want to map through it
            <div style={styles.donationsDivStyle}>
-              {data.me.donations.map((donation) => (
+              {data.donations.map((donation) => (
                 
                 <div key={donation._id} style={styles.donationStyle}>
                    <ul style={styles.list}>
@@ -68,7 +70,7 @@ const MyDonations = () => {
                 </ul>
                 </div>
               ))}
-              </div>
+              </div> */}
          
           </div>
         </div>
@@ -81,14 +83,7 @@ const MyDonations = () => {
         </div>
       );
     }
-  } else {
-    //if not logged in
-    return (
-      <div>
-        <h1>Need to log in</h1>
-      </div>
-    );
-  }
+
 };
 
-export default MyDonations;
+export default UserProfile;

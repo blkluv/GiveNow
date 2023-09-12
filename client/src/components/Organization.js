@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StripeContainer from "../components/StripeContainer";
-import test from '../assets/test.jpg'
+import test4 from '../assets/test4.jpg'
 import test2 from '../assets/test2.jpg'
 import test3 from '../assets/test3.JPG'
 import '../assets/styles/Organization.css'
@@ -33,18 +33,18 @@ const Organization = () => {
       image: test3,
     },
     {
-      name: "Owl House",
-      description: "Department for saving the owls!",
-      id: "64f91cb13907b04fde495fbf",
-      image: test,
-    },
-    {
       name: "Cat Corp",
       description: "Corp to save the cats!",
       id: "64f7c7f25cec709320224369",
       image: test2,
     },
-    // Add more organizations as needed
+    {
+      name: "Jungle Journey",
+      description: "Save the animals of the junngles!",
+      id: "64ffbe0e51f8f778498064db",
+      image: test4,
+    },
+    // Add more organizations as needed 
   ];
 
   // Function to handle custom amount input change for a specific organization

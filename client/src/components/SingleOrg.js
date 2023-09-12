@@ -11,7 +11,7 @@ const divStyle = {
   transform: 'translate(-50%, -50%)',
 };
 function SingleOrg(props) {
-  //console.log(props,"hi kai")
+  console.log(props,"hi kai")
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { orgId: props.org.id },
     skip: !props.show, // Skip the query if the modal is closed
@@ -48,6 +48,7 @@ function SingleOrg(props) {
   }
 
   const organization = data?.org; 
+  console.log(organization,"---------here")
   // use info from props and data from query
   return (
     <Modal
@@ -69,7 +70,7 @@ function SingleOrg(props) {
         <ul>
         {organization.topDonors.map((donor, index) =>(
           <li key={`donor_${index}`}>
-            {donor.user ? donor.user.username || "Anon" : "Anon"} &nbsp;
+            <a href={`user/${donor.user._id}`}>{donor.user ? donor.user.username || "Anon" : "Anon"}</a> &nbsp;
           {(donor.donationAmount / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
 
           </li>

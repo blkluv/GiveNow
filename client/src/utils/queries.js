@@ -28,9 +28,29 @@ query Query($orgId: ID!) {
     name
     topDonors {
       user {
+        _id
         username
       }
       donationAmount
+    }
+  }
+}
+`;
+export const GET_USER = gql`
+query Query($userId: ID!) {
+  user(userId: $userId) {
+    _id
+    email
+    topdoner
+    username
+    donations {
+      _id
+      amount
+      date
+      organization {
+        _id
+        name
+      }
     }
   }
 }
