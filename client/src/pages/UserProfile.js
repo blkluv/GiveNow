@@ -25,8 +25,9 @@ const styles = {
   }
 };
 const UserProfile = () => {
+  const { id } = useParams();
   const { loading, data, refetch } = useQuery(GET_USER, {
-    variables: { userId: "64fec926597efe51aef839aa"},
+    variables: { userId: id},
     pollInterval: 60000, // Poll the server every 60 seconds (adjust this interval as needed)
   });
 
