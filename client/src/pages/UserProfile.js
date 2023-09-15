@@ -47,8 +47,7 @@ const UserProfile = () => {
       console.log(data,"------------------------------------me--------------------")
       return (
         <div>
-          <button onClick={refreshData}>Refresh Data</button>
-          <h1>My donations</h1>
+          <h1>{data.user.username}'s Donations</h1>
           <div>
             <h2>userinfo</h2>
             <p>username: {data.user.username}</p>
@@ -57,6 +56,7 @@ const UserProfile = () => {
 
           </div>
           <div>
+          <button onClick={refreshData}>Refresh Data</button>
             <h2>Donations</h2>
             {/* Render donations data, you might want to map through it */}
            <div style={styles.donationsDivStyle}>
