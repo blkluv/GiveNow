@@ -5,17 +5,28 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import './styles/navbar.css'
 import Auth from '../utils/auth';
+import logo from '../assets/GiveNow.png'
+const styles = {
+logo:{
+  display: 'flex',
+  justifyContent: 'center'
+}
 
+}
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
+    <div style={styles.logo}>
+    <img src={logo}></img>
+    </div>
       <Navbar className='navbar' expand='lg'>
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
-            GiveNow
+            Home
+            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex'>
