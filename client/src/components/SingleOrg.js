@@ -67,8 +67,9 @@ function SingleOrg(props) {
 
         <p>{props.org.description}</p>
         <h4>Top Donators </h4>
+        {organization.topDonors.length ?(
         <ul>
-        {organization.topDonors.map((donor, index) =>(
+       {organization.topDonors.map((donor, index) =>(
           <li key={`donor_${index}`}>
             <a href={donor.user ? `user/${donor.user._id}` : '#'}>{donor.user ? donor.user.username || "Anon" : "Anon"}</a> &nbsp;
 
@@ -76,7 +77,9 @@ function SingleOrg(props) {
 
           </li>
         ))}
-        </ul>
+        
+        </ul>)
+        : (<p>No Donations Yet :(</p>)}
       
       </Modal.Body>
       <Modal.Footer>

@@ -26,22 +26,22 @@ const Organization = () => {
 
   // Define an array of organizations with their details
   const organizations = [
-    {
-      name: "Kaikane Lacno",
-      description: "broke as fuck",
-      id: "64fe7d5f8b100153d5625efc",
-      image: test3,
-    },
+    // {
+    //   name: "Kaikane Lacno",
+    //   description: "broke as fuck",
+    //   id: "64fe7d5f8b100153d5625efc",
+    //   image: test3,
+    // },
     {
       name: "Cat Corp",
       description: "Corp to save the cats!",
-      id: "64f7c7f25cec709320224369",
+      id: "6509015577293823312891c2",
       image: test2,
     },
     {
       name: "Jungle Journey",
       description: "Save the animals of the junngles!",
-      id: "64ffbe0e51f8f778498064db",
+      id: "6509001377293823312891a9",
       image: test4,
     },
     // Add more organizations as needed 

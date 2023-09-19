@@ -51,7 +51,6 @@ const UserProfile = () => {
           <div>
             <h2>userinfo</h2>
             <p>username: {data.user.username}</p>
-            <p>email: {data.user.email}</p>
             <p>topdoner: {data.user.topdoner == true ? `${data.user.username} is a Top Donor!` : "Not"}</p>
 
           </div>
