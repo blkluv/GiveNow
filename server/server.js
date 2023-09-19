@@ -5,7 +5,7 @@ const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 require('dotenv').config()
-const stripe = require("stripe")("sk_test_51NkBSxGYCFpESPA0zF23TVlklZXHlB4wS40q45kzu48hUPmUejbTjxYjBk5wyg906kobWHVpzCdA1OY0lSJGUoKn00DUHIbp4b");
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_TEST);
 const app = express();
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
