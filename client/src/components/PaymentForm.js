@@ -3,8 +3,6 @@ import {
   CardElement,
   useStripe,
   useElements,
-  PaymentElement,
-  LinkAuthenticationElement
 } from "@stripe/react-stripe-js";
 import axios from "axios"
 import { useMutation } from "@apollo/client";
@@ -69,6 +67,7 @@ const handleSubmit = async (e) => {
       const { id } = paymentMethod;
       console.log("Stripe payment method ID:", id);
       console.log("email", email)
+   
 
       const response = await axios.post("http://localhost:4000/payment", {
         amount: props.amount,
@@ -81,6 +80,11 @@ const handleSubmit = async (e) => {
 
       if (response.data.success) {
         console.log("Successful payment");
+        try {
+          
+        } catch (error) {
+          
+        }
         const mutationResponse = await makeDonation({
           variables: {
             organization: props.OrgID,
@@ -116,6 +120,7 @@ const handleSubmit = async (e) => {
         type="email"
         title="email"
         placeholder="Enter your email"
+        required="true"
         value={email}
         onChange={handleEmailChange}
       />

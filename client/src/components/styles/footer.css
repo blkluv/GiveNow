@@ -1,27 +1,78 @@
-   .footerh4{
-         font-size: 18px;
-         color: #ffffff;
-         text-transform: capitalize;
-         margin-bottom: 35px;
-         font-weight: 500;
-        position: relative;
-       }
+.custom-bg-color {
+  background-color: #51ADE5;
+}
+
+.bi{
+  margin: 1%
+}
+.h4footermadewith{
+  margin-bottom: 6%;
+  border: none;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-style: italic;
+}
+.custom-color {
+  color: black; /* Change this to your desired color */
+}
+.custom-color:hover {
+  color: rgba(17, 17, 17, 0.801); /* Change this to your desired color */
+}
+.footer-navigation{
+  display: flex;
+  flex-direction: column;
+}
+
+.footercontainer{
+  display: flex;
+  flex-direction: row;
+  
+  justify-content: space-evenly;
+}
+.social-links{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1%;
+  
+}
+.footercontact{
+  display: flex;
+  flex-direction: column;
+  
+}
+.footer-outer{
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.allrightsres{
+  margin-top: 10%;
+}
+
+@media screen and (max-width: 590px ) {
+  .footercontainer{
+    flex-direction: column;
+  }
+  h4{
      
-     
+      border: 1px solid white;
    
-    
-   
-      
-      /*responsive*/
-      /* @media(max-width: 767px){
-        .footer-col{
-          width: 50%;
-          margin-bottom: 30px;
-      }
-      }
-      @media(max-width: 574px){
-        .footer-col{
-          width: 100%;
-      }
-      } */
-      
+  }
+
+}
+@media (max-width: 520px) {
+  .h4footermadewith{
+     font-size:medium;
+  }
+
+}
+@media (max-width: 380px) {
+  .h4footermadewith{
+     font-size:small;
+  }
+
+}
+@media (max-width: 324px) {
+  .h4footermadewith{
+     font-size: x-small;
+  }
+
+}

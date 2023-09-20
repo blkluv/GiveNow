@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import './styles/navbar.css'
 import Auth from '../utils/auth';
 import logo from '../assets/GiveNow.png'
+//import NavDropdown from 'react-bootstrap/NavDropdown';
 const styles = {
 logo:{
   display: 'flex',
@@ -20,35 +21,50 @@ const AppNavbar = () => {
   return (
     <>
     <div style={styles.logo}>
-    <img src={logo}></img>
+    <img src={logo} alt='logo'></img>
     </div>
-      <Navbar className='navbar' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Home
+    <Navbar collapseOnSelect expand="lg" className="navbar">
+      <Container>
+      <Navbar.Brand as={Link} to='/'>
+           GiveNow
             
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar' className='d-flex'>
-            <Nav className='ml-auto d-flex'>
-              <Nav.Link as={Link} to='/donate'>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+          <Nav.Link as={Link} to='/donate'>
                 Make a donation
               </Nav.Link>
-              {/* if user is logged in show  */}
-              {Auth.loggedIn() ? (
-                <>
-                  <Nav.Link as={Link} to='/mydonations'>
-                   MyDonations
-                  </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
-                </>
-              ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+     {/* drop down for later use? */}
+            {/* <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+                Separated link
+              </NavDropdown.Item>
+            </NavDropdown> */}
+          </Nav>
+          <Nav>
+                  {/* if user is logged in show */}
+  {Auth.loggedIn() ? (
+   <>
+      <Nav.Link as={Link} to='/mydonations'>
+        MyDonations
+     </Nav.Link>
+      <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+    </>
+   ) : (
+     <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+   )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+
       {/* set modal data up */}
       <Modal
         size='lg'
@@ -86,3 +102,4 @@ const AppNavbar = () => {
 };
 
 export default AppNavbar;
+
