@@ -2,12 +2,24 @@ import React, {  useState } from "react";
 import {
   CardElement,
   useStripe,
-  useElements
+  useElements,
+  PaymentElement,
+  LinkAuthenticationElement
 } from "@stripe/react-stripe-js";
 import axios from "axios"
 import { useMutation } from "@apollo/client";
 import { MAKE_DONATION } from "../utils/mutations";
 
+const styles = {
+  form:{
+    display: 'flex',
+    flexDirection: 'column',
+    width: "100%",
+    border: "1px solid black",
+    padding: '1%',
+    borderRadius: "1%"
+  }
+}
 
 
 const CARD_OPTIONS = {
@@ -15,7 +27,7 @@ const CARD_OPTIONS = {
 	style: {
 		base: {
 			iconColor: "#c4f0ff",
-			color: "#fff",
+			color: "black",
 			fontWeight: 500,
 			fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
 			fontSize: "16px",
@@ -24,8 +36,8 @@ const CARD_OPTIONS = {
 			"::placeholder": { color: "#87bbfd" }
 		},
 		invalid: {
-			iconColor: "#ffc7ee",
-			color: "#ffc7ee"
+			iconColor: "red",
+			color: "red"
 		}
 	}
 }
@@ -36,7 +48,11 @@ export default function PaymentForm(props) {
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
 const elements = useElements()
-
+// email state and handleing
+const [email, setEmail] = useState("")
+const handleEmailChange = (event) => {
+  setEmail(event.target.value);
+};
 const handleSubmit = async (e) => {
   e.preventDefault();
   console.log("Handling form submission...");
@@ -52,10 +68,12 @@ const handleSubmit = async (e) => {
     try {
       const { id } = paymentMethod;
       console.log("Stripe payment method ID:", id);
+      console.log("email", email)
 
       const response = await axios.post("http://localhost:4000/payment", {
         amount: props.amount,
         description: props.description,
+        email: email,
         id: id,
       });
 
@@ -87,12 +105,20 @@ const handleSubmit = async (e) => {
   return (
 <>
 {!success ?
-<form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit} style={styles.form}>
 <fieldset className="FormGroup">
   <div className="FormRow">
     <CardElement options={CARD_OPTIONS}/>
+    
   </div>
 </fieldset>
+<input
+        type="email"
+        title="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={handleEmailChange}
+      />
 <button className="button2">Pay</button>
 </form>
 :

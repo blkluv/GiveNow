@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 // });
 app.post("/payment", cors(), async (req,res) => {
-  let {amount , id , description} = req.body
+  let {amount , id , description, email} = req.body
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -47,6 +47,8 @@ app.post("/payment", cors(), async (req,res) => {
       description: description,
       payment_method: id,
       confirm: true,
+      receipt_email: email,
+      
       return_url: "https://localhost:3000/success",
     })
 
