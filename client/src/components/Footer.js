@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/footer.css'
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
+import { ModalContext } from '../utils/Context';
 const Footer = () => {
+  const {  toggleModal } = useContext(ModalContext);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -59,8 +61,8 @@ const Footer = () => {
           </Link>
       ) : (
         // Render "Login" and "Sign Up" links when the user is not logged in
-        
-          <Link className="footer-link custom-color"  onClick={scrollToTop}>
+        // TODO open modal from here. maybe pass a prop down or just add the whole modal below
+          <Link className="footer-link custom-color"  onClick={toggleModal}>
          Login/Sign Up
        </Link>
         

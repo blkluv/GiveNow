@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { ModalProvider } from "./utils/Context";
 import {
   ApolloClient,
   InMemoryCache,
@@ -39,6 +40,7 @@ const authLink = setContext((_, { headers }) => {
     cache: new InMemoryCache(),
 });
 return (
+ <ModalProvider>
   <ApolloProvider client = {client}>
   <Router>
     <div className="App">
@@ -63,5 +65,6 @@ return (
     </div>
   </Router>
   </ApolloProvider>
+  </ModalProvider>
 );
 }

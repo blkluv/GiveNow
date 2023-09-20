@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
@@ -6,6 +6,8 @@ import LoginForm from './LoginForm';
 import './styles/navbar.css'
 import Auth from '../utils/auth';
 import logo from '../assets/GiveNow.png'
+
+import { ModalContext } from '../utils/Context'
 //import NavDropdown from 'react-bootstrap/NavDropdown';
 const styles = {
 logo:{
@@ -16,7 +18,7 @@ logo:{
 }
 const AppNavbar = () => {
   // set modal display state
-  const [showModal, setShowModal] = useState(false);
+  const { showModal, toggleModal } = useContext(ModalContext);
 
   return (
     <>
@@ -58,7 +60,7 @@ const AppNavbar = () => {
       <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
     </>
    ) : (
-     <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+     <Nav.Link onClick={toggleModal}>Login/Sign Up</Nav.Link>
    )}
           </Nav>
         </Navbar.Collapse>
@@ -69,7 +71,7 @@ const AppNavbar = () => {
       <Modal
         size='lg'
         show={showModal}
-        onHide={() => setShowModal(false)}
+        onHide={toggleModal}
         aria-labelledby='signup-modal'>
         {/* tab container to do either signup or login component */}
         <Tab.Container defaultActiveKey='login'>
@@ -88,10 +90,10 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <LoginForm handleModalClose={toggleModal} />
               </Tab.Pane>
               <Tab.Pane eventKey='signup'>
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm handleModalClose={toggleModal} />
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>
