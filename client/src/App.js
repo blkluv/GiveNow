@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar"
 import Donate from "./pages/Donate"
 import UserProfile from "./pages/UserProfile";
+import Footer from "./components/Footer"
 export default function App() {
   // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -58,7 +59,7 @@ return (
 
           
 
-      
+      <Footer/>
     </div>
   </Router>
   </ApolloProvider>
