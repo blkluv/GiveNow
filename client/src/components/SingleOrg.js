@@ -11,7 +11,7 @@ const divStyle = {
   transform: 'translate(-50%, -50%)',
 };
 function SingleOrg(props) {
-  console.log(props,"hi kai")
+  // console.log(props,"hi kai")
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { orgId: props.org.id },
     skip: !props.show, // Skip the query if the modal is closed
@@ -48,7 +48,7 @@ function SingleOrg(props) {
   }
 
   const organization = data?.org; 
-  console.log(organization,"---------here")
+  // console.log(organization,"---------here")
   // use info from props and data from query
   return (
     <Modal

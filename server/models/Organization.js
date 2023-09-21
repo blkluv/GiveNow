@@ -12,21 +12,10 @@ const organizationSchema = new Schema({
     type: Number,
     default: 0
   },
-  topDonation1: {
-    type: Number,
-    default: 0
-  },
-  topDonation2: { 
-    type: Number,
-    default: 0
-  },
-  topDonation3:{ 
-    type: Number,
-    default: 0
-  },
-  
-   
-  
+category:{
+  type: String,
+  required: true,
+}
   // Add other organization-related fields here
 },
 {

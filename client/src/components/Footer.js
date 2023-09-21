@@ -61,7 +61,6 @@ const Footer = () => {
           </Link>
       ) : (
         // Render "Login" and "Sign Up" links when the user is not logged in
-        // TODO open modal from here. maybe pass a prop down or just add the whole modal below
           <Link className="footer-link custom-color"  onClick={toggleModal}>
          Login/Sign Up
        </Link>

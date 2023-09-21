@@ -3,10 +3,10 @@ import StripeContainer from "../components/StripeContainer";
 import test4 from '../assets/test4.jpg'
 import test2 from '../assets/test2.jpg'
 import test3 from '../assets/test3.JPG'
-import '../assets/styles/Organization.css'
+import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 
-const Organization = () => {
+const Organization = ({ selectedCategory }) => {
   const [modalShow, setModalShow] = React.useState(false);
   const [showItem, setShowItem] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -15,6 +15,7 @@ const Organization = () => {
   const [OrgID, setOrgID] = useState("");
   const [customAmounts, setCustomAmounts] = useState({}); // State to store custom amounts
   const [orgdata, setorgdata] = useState("");
+ 
   // Function to set both amount, itemName, itemDescription, and OrgID
   const setItem = (name, price, description, orgID) => {
     setShowItem(true);
@@ -26,22 +27,25 @@ const Organization = () => {
 
   // Define an array of organizations with their details
   const organizations = [
-    // {
-    //   name: "Kaikane Lacno",
-    //   description: "broke as fuck",
-    //   id: "64fe7d5f8b100153d5625efc",
-    //   image: test3,
-    // },
+    {
+      name: "Green Cross",
+      description: "Disaster relief program",
+      id: "650c92dfa1174b43ec743335",
+      category: "Disaster Relief",
+      image: test3,
+    },
     {
       name: "Cat Corp",
       description: "Corp to save the cats!",
-      id: "6509015577293823312891c2",
+      id: "650c9321a1174b43ec743339",
+      category: "Animal Welfare",
       image: test2,
     },
     {
       name: "Jungle Journey",
       description: "Save the animals of the junngles!",
-      id: "6509001377293823312891a9",
+      id: "650c933fa1174b43ec74333b",
+      category: "Enviromental",
       image: test4,
     },
     // Add more organizations as needed 
@@ -69,8 +73,11 @@ const Organization = () => {
       org={orgdata}
         onHide={() => setModalShow(false)}
       />
-          {organizations.map((org) => (
+           {organizations
+            .filter((org) => selectedCategory === null || org.category === selectedCategory)
+            .map((org) => (
             <div className="singleOrg" key={org.id}>
+              
               <h2>{org.name}</h2>
               <h3>{org.description}</h3>
               <img alt={org.name} src={org.image} onClick={() => { setModalShow(true); setorgdata(org) }}/>
@@ -100,6 +107,7 @@ const Organization = () => {
                 <span>USD</span>
                 <button className="button2" onClick={() => setItem(org.name, customAmounts[org.id] * 100, org.description, org.id)}>GiveNow</button>
               </div>
+           
             </div>
           ))}
         </div>

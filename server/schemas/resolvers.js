@@ -196,11 +196,11 @@ org: async (parent, args) => {
       
       
       
-      makeOrganization: async (parent, { name, description, amountraised }, context) => {
+      makeOrganization: async (parent, { name, description, amountraised, category }, context) => {
         // Check if the user is authenticated (optional)
         
           // If the user is not logged in, create the donation without a user association
-          const Org = await Organization.create({ name, description, amountraised });
+          const Org = await Organization.create({ name, description, amountraised, category });
           return Org;
         
       },

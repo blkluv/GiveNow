@@ -27,9 +27,7 @@ const typeDefs = gql`
  name: String!
  description: String!
  amountraised: Int
- topDonation1: Int
- topDonation2: Int
- topDonation3: Int
+category: String!
  topDonors: [UserDonation]  
  }
   type Query {
@@ -50,7 +48,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     makeDonation(amount: Int!, organization: ID!): Donation
-    makeOrganization(name: String!, description: String!, amountraised: Int): Organization
+    makeOrganization(name: String!, description: String!, amountraised: Int, category: String!): Organization
   }
 `;
 

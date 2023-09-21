@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, {  useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
