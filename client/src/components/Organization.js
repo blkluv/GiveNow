@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import StripeContainer from "../components/StripeContainer";
-import test4 from '../assets/test4.jpg'
-import test2 from '../assets/test2.jpg'
-import test3 from '../assets/test3.JPG'
+import { GET_ORGANIZATIONS } from "../utils/queries";
+import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 
@@ -15,41 +14,19 @@ const Organization = ({ selectedCategory }) => {
   const [OrgID, setOrgID] = useState("");
   const [customAmounts, setCustomAmounts] = useState({}); // State to store custom amounts
   const [orgdata, setorgdata] = useState("");
- 
+  const { loading, data, error } = useQuery(GET_ORGANIZATIONS)
+  console.log(data)
+
   // Function to set both amount, itemName, itemDescription, and OrgID
-  const setItem = (name, price, description, orgID) => {
+  const setItem = (name, price, description, orgid) => {
     setShowItem(true);
     setAmount(price);
     setItemName(name);
     setItemDescription(description);
-    setOrgID(orgID);
+    console.log(orgid,"==== org id here =====")
+    setOrgID(orgid);
   };
 
-  // Define an array of organizations with their details
-  const organizations = [
-    {
-      name: "Green Cross",
-      description: "Disaster relief program",
-      id: "650c92dfa1174b43ec743335",
-      category: "Disaster Relief",
-      image: test3,
-    },
-    {
-      name: "Cat Corp",
-      description: "Corp to save the cats!",
-      id: "650c9321a1174b43ec743339",
-      category: "Animal Welfare",
-      image: test2,
-    },
-    {
-      name: "Jungle Journey",
-      description: "Save the animals of the junngles!",
-      id: "650c933fa1174b43ec74333b",
-      category: "Enviromental",
-      image: test4,
-    },
-    // Add more organizations as needed 
-  ];
 
   // Function to handle custom amount input change for a specific organization
   const handleCustomAmountChange = (event, org) => {
@@ -57,10 +34,12 @@ const Organization = ({ selectedCategory }) => {
     // Update the customAmounts dictionary with the custom amount for the specific organization
     setCustomAmounts((prevCustomAmounts) => ({
       ...prevCustomAmounts,
-      [org.id]: parseFloat(newCustomAmount),
+      [org._id]: parseFloat(newCustomAmount),
     }));
   };
-
+  if(!loading){
+    let organizations = data.organizations
+ 
   return (
     <div>
       {showItem ? (
@@ -73,10 +52,10 @@ const Organization = ({ selectedCategory }) => {
       org={orgdata}
         onHide={() => setModalShow(false)}
       />
-           {organizations
+           { organizations
             .filter((org) => selectedCategory === null || org.category === selectedCategory)
             .map((org) => (
-            <div className="singleOrg" key={org.id}>
+            <div className="singleOrg" key={org._id}>
               
               <h2>{org.name}</h2>
               <h3>{org.description}</h3>
@@ -100,12 +79,12 @@ const Organization = ({ selectedCategory }) => {
                 <span>$</span>
                 <input
                   type="number"
-                  id={org.id}
-                  value={customAmounts[org.id] || ''}
+                  id={org._id}
+                  value={customAmounts[org._id] || ''}
                   onChange={(event) => handleCustomAmountChange(event, org)}
                 />
                 <span>USD</span>
-                <button className="button2" onClick={() => setItem(org.name, customAmounts[org.id] * 100, org.description, org.id)}>GiveNow</button>
+                <button className="button2" onClick={() => setItem(org.name, customAmounts[org._id] * 100, org.description, org._id)}>GiveNow</button>
               </div>
            
             </div>
@@ -114,6 +93,12 @@ const Organization = ({ selectedCategory }) => {
       )}
     </div>
   );
+}
+else{
+  return(
+    <h1>LOADING...</h1>
+  )
+}
 };
 
 export default Organization;

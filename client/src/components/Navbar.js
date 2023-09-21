@@ -5,7 +5,7 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import './styles/navbar.css'
 import Auth from '../utils/auth';
-import logo from '../assets/GiveNow.png'
+import logo from '../components/styles/GiveNow.png'
 
 import { ModalContext } from '../utils/Context'
 //import NavDropdown from 'react-bootstrap/NavDropdown';

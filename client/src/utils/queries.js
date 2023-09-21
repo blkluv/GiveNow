@@ -56,3 +56,14 @@ query Query($userId: ID!) {
   }
 }
 `;
+export const GET_ORGANIZATIONS = gql`
+query Query {
+  organizations {
+    _id
+    name
+    description
+    category
+    image
+  }
+}
+`

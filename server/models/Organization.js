@@ -15,7 +15,10 @@ const organizationSchema = new Schema({
 category:{
   type: String,
   required: true,
-}
+},
+image: {
+  type: String,  // Assuming storing image URLs or paths
+},
   // Add other organization-related fields here
 },
 {

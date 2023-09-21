@@ -11,9 +11,9 @@ const divStyle = {
   transform: 'translate(-50%, -50%)',
 };
 function SingleOrg(props) {
-  // console.log(props,"hi kai")
+  //  console.log(props,"hi kai")
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
-    variables: { orgId: props.org.id },
+    variables: { orgId: props.org._id },
     skip: !props.show, // Skip the query if the modal is closed
   });
 
