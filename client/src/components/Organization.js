@@ -5,9 +5,9 @@ import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 
-const Organization = ({ selectedCategory }) => {
+const Organization = ({ selectedCategory, setShowItem, showItem }) => {
   const [modalShow, setModalShow] = React.useState(false);
-  const [showItem, setShowItem] = useState(false);
+
   const [amount, setAmount] = useState(0);
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
@@ -43,6 +43,7 @@ const Organization = ({ selectedCategory }) => {
   return (
     <div>
       {showItem ? (
+        
         <StripeContainer amount={amount} itemName={itemName} description={itemDescription} OrgID={OrgID} />
       ) : (
         
