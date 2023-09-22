@@ -2,14 +2,11 @@
 .donateh1{
     text-align: center;
 }
-.CatDiv{
+
+.inputdiv{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 1%;
+    justify-content: center;
 }
-.catbtn{
+.btncat{
     margin: 1%;
-    width: 20vh;
-    height: 4vh;
 }
