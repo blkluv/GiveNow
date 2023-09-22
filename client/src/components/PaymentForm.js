@@ -7,7 +7,7 @@ import {
 import axios from "axios"
 import { useMutation } from "@apollo/client";
 import { MAKE_DONATION } from "../utils/mutations";
-
+import Success from '../pages/SuccessPage';
 const styles = {
   form:{
     display: 'flex',
@@ -120,7 +120,7 @@ const handleSubmit = async (e) => {
         type="email"
         title="email"
         placeholder="Enter your email"
-        required="true"
+        required={true}
         value={email}
         onChange={handleEmailChange}
       />
@@ -128,7 +128,8 @@ const handleSubmit = async (e) => {
 </form>
 :
 <div>
-  <h2>You Just Donated {(props.amount /100).toFixed(2) }$ to {props.itemName} thank you so much!</h2>
+  
+  <Success Sucprops={props}/>
 </div>
 }
 </>

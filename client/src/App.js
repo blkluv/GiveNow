@@ -10,7 +10,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MyDonations from './pages/MyDonations'
-import Success from "./pages/success";
+import SuccessPage from "./pages/SuccessPage";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar"
 import Donate from "./pages/Donate"
@@ -48,7 +48,7 @@ return (
      
   <Routes>
 
-      <Route path="/success" element={<Success/>} />
+      <Route path="/successpage" element={<SuccessPage/>} />
       
         <Route exact path="/" element={<Home/>} /> 
         
