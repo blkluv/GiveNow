@@ -27,6 +27,7 @@ query Query($orgId: ID!) {
     description
     name
     category
+    image
     topDonors {
       user {
         _id
