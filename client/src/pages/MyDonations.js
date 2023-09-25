@@ -2,7 +2,7 @@ import React from 'react';
 import auth from '../utils/auth';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
-
+import topdonor from '../components/styles/topdonor.png'
 const styles = {
   donationsDivStyle: {
     background: 'white',
@@ -50,7 +50,7 @@ const MyDonations = () => {
             <h2>userinfo</h2>
             <p>username: {data.me.username}</p>
             <p>email: {data.me.email}</p>
-            <p>topdoner: {data.me.topdoner == true ? "You are a Top Donor!" : "Not"}</p>
+            <p>topdoner: </p> <img src={data.me.topdoner === true ? topdonor  : "Not"}></img>
 
           </div>
           <div>

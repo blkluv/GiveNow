@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar"
 import Donate from "./pages/Donate"
 import UserProfile from "./pages/UserProfile";
 import Footer from "./components/Footer"
+import About from "./pages/About";
 export default function App() {
   // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -51,7 +52,7 @@ return (
       <Route path="/successpage" element={<SuccessPage/>} />
       
         <Route exact path="/" element={<Home/>} /> 
-        
+        <Route exact path="/about" element={<About/>} /> 
       
 <Route exact path="/donate" element={<Donate/>} /> 
 <Route exact path="/mydonations" element={<MyDonations />}/> 

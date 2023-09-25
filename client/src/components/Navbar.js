@@ -23,7 +23,10 @@ const AppNavbar = () => {
   return (
     <>
     <div style={styles.logo}>
+    
+    <Nav.Link as={Link} to='/'>
     <img src={logo} alt='logo'></img>
+              </Nav.Link>
     </div>
     <Navbar collapseOnSelect expand="lg" className="navbar">
       <Container>
@@ -37,7 +40,9 @@ const AppNavbar = () => {
           <Nav.Link as={Link} to='/donate'>
                 Make a donation
               </Nav.Link>
-    
+              <Nav.Link as={Link} to='/about'>
+                About
+              </Nav.Link>
           </Nav>
           <Nav>
                   {/* if user is logged in show */}
