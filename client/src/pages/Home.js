@@ -41,7 +41,7 @@ const Home = () => {
   let top3DonatedOrganizations = 0;
   if(!loading){
     let organizations = [...data.organizations]; // Create a copy of the array
-
+console.log(organizations)
     const sortedOrganizations = organizations.sort((a, b) => b.donationsmade - a.donationsmade);
     top3DonatedOrganizations = sortedOrganizations.slice(0, 3);
   }
@@ -118,7 +118,7 @@ return(
                   <Carousel.Caption>
                     <h3>{org.name}</h3>
                     <p>{org.description}</p>
-                    {/* Add button functionality?! */}
+                    {/*TODO Add button functionality?! */}
                     <button>GiveNow</button>
                   </Carousel.Caption>
             

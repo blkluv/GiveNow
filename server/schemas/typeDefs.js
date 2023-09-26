@@ -31,6 +31,7 @@ category: String!
 image: String
 donationsmade: Int
  topDonors: [UserDonation] 
+ date: String!
   
  }
   type Query {

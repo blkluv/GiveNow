@@ -38,7 +38,9 @@ const MyDonations = () => {
     if (loading) {
       return <p>Loading...</p>; // You can display a loading indicator here
     }
-
+    // if(!loading){
+    //   console.log(data)
+    // }
     // Check if data.me exists before accessing its properties
     if (data && data.me) {
       //console.log(data.me,"------------------------------------me--------------------")
@@ -50,14 +52,15 @@ const MyDonations = () => {
             <h2>userinfo</h2>
             <p>username: {data.me.username}</p>
             <p>email: {data.me.email}</p>
-            <p>topdoner: </p> <img src={data.me.topdoner === true ? topdonor  : "Not"}></img>
+            <p>topdoner: </p>{!data.me.topdonor === true ? <img src={topdonor} alt='top donor badge'></img> : <p>not top doner</p>}
+             {/* <img src={data.me.topdoner === true ? topdonor  : "Not"}></img> */}
 
           </div>
           <div>
             <h2>Donations</h2>
             {/* Render donations data, you might want to map through it */}
            <div style={styles.donationsDivStyle}>
-              {data.me.donations.map((donation) => (
+              {data.me.donations.length > 0 ? data.me.donations.map((donation) => (
                 
                 <div key={donation._id} style={styles.donationStyle}>
                    <ul style={styles.list}>
@@ -67,7 +70,7 @@ const MyDonations = () => {
                 
                 </ul>
                 </div>
-              ))}
+              )): <div style={styles.donationStyle}>No donations yet!</div>}
               </div>
          
           </div>
@@ -75,9 +78,10 @@ const MyDonations = () => {
       );
     } else {
       // Handle the case when data.me doesn't exist
+      
       return (
         <div>
-          <h1>Data not available</h1>
+          <h1>No data!</h1>
         </div>
       );
     }

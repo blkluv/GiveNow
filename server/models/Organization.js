@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-
+const dateFormat = require('../utils/dateFormat');
 const organizationSchema = new Schema({
   name: {
     type: String,
@@ -22,6 +22,11 @@ image: {
 donationsmade:{
   type: Number,
   default: 0
+},
+date: {
+  type: Date,
+  default: Date.now,
+  get: (timestamp) => dateFormat(timestamp),
 },
   // Add other organization-related fields here
 },

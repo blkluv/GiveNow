@@ -68,6 +68,14 @@ query Query {
     amountraised
     image
     donationsmade
+    date
+  }
+}
+`
+export const GET_ORGANIZATIONS2 = gql`
+query Query {
+  organizations {
+    category
   }
 }
 `
