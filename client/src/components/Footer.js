@@ -51,8 +51,8 @@ const Footer = () => {
             <Link className="footer-link custom-color" to="/donate" onClick={scrollToTop}>
               Make a Donation
             </Link>
-            <Link className="footer-link custom-color" to="/contact" onClick={scrollToTop}>
-              About?
+            <Link className="footer-link custom-color" to="/about" onClick={scrollToTop}>
+              About
             </Link>
             {auth.loggedIn() ? (
         

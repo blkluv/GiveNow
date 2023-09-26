@@ -19,6 +19,10 @@ category:{
 image: {
   type: String,  // Assuming storing image URLs or paths
 },
+donationsmade:{
+  type: Number,
+  default: 0
+},
   // Add other organization-related fields here
 },
 {

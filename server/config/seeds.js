@@ -20,6 +20,18 @@ const organizationsData = [
     category: "Environmental",
     image: 'test4.jpg',
   },
+  {
+    name: "Enlighten Explosion",
+    description: "Teaching the youth for a better tomorrow",
+    category: "Education",
+    image: 'education.jpg',
+  },
+  {
+    name: "Happy Healthy Hooray!",
+    description: "eat better feel better",
+    category: "Healthcare",
+    image: 'health.jpg',
+  },
   // Add more organizations as needed
 ];
 

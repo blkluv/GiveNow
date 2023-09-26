@@ -28,6 +28,7 @@ query Query($orgId: ID!) {
     name
     category
     image
+   
     topDonors {
       user {
         _id
@@ -64,7 +65,9 @@ query Query {
     name
     description
     category
+    amountraised
     image
+    donationsmade
   }
 }
 `

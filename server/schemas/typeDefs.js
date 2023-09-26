@@ -29,7 +29,9 @@ const typeDefs = gql`
  amountraised: Int
 category: String!
 image: String
- topDonors: [UserDonation]  
+donationsmade: Int
+ topDonors: [UserDonation] 
+  
  }
   type Query {
     org(orgId: ID!): Organization 

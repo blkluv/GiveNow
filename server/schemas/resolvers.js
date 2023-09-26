@@ -149,8 +149,10 @@ org: async (parent, args) => {
           // Update the organization's amountraised field
           const org = await Organization.findById(organization);
           if (org) {
+            //update amount raised by doations
+            // and increase the number of donations made
             org.amountraised += amount;
-      
+            org.donationsmade += 1;
             // Retrieve the top three donations for the organization
             const topDonations = await Donation.find({ organization })
               .sort({ amount: -1 }) // Sort in descending order
@@ -184,7 +186,10 @@ org: async (parent, args) => {
           // Update the organization's amountraised field
           const org = await Organization.findById(organization);
           if (org) {
+              //update amount raised by doations
+            // and increase the number of donations made
             org.amountraised += amount;
+            org.donationsmade += 1;
             await org.save();
           }
       
