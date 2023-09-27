@@ -17,8 +17,6 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    
-    
-    
-}
+    "graphql-upload": "^16.0.2"
+  }
 }

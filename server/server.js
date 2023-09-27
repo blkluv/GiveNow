@@ -9,7 +9,7 @@ const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_TEST);
 const app = express();
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
-
+const multer = require('multer');
 
 app.use(cors());
 // GraphQL setup
@@ -72,6 +72,23 @@ app.post("/payment", cors(), async (req,res) => {
   }
 }
 )
+//image uploading
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..','client', 'public', 'uploads'));
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+
+const upload = multer({ storage });
+app.post('/upload', upload.single('image'), (req, res) => {
+  const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+  res.json({ imageUrl });
+});
 
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();

@@ -39,6 +39,7 @@ mutation MakeOrganization($name: String!, $description: String!, $category: Stri
     _id
     name
     description
+    image
   }
 }
 `;

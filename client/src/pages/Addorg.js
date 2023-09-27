@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { useMutation } from "@apollo/client";
 import { MAKE_ORGANIZATION } from '../utils/mutations';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 const Addorg = () => {
     const [makeOrganization] = useMutation(MAKE_ORGANIZATION);
     const { loading, data, error } = useQuery(GET_ORGANIZATIONS2)
@@ -13,7 +14,12 @@ const Addorg = () => {
         description: "",
         category: "",
       });
+      const [image, setImage] = useState(null);
 
+      const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setImage(file);
+      };
       const handleChange = (event) => {
         const { name, value } = event.target;
         setFormState({
@@ -23,34 +29,56 @@ const Addorg = () => {
       };
 
       const handleSubmit = async (e) => {
-        e.preventDefault()
-        if(formState.category === ""){
-            console.log("Need to Select a category!")
-        }
-        else{
-            try {
-                const mutationResponse = await makeOrganization({
-                    variables: {
-                      name: formState.name,
-                      description: formState.description,
-                      category: formState.category
-                    },
-                  });
-                  console.log("Mutation response:", mutationResponse);
-            } catch (error) {
-                console.log(error)
-            }
-            
-        }
-        
-      };
-let uniqueCategories = []
-    if(!loading){
-        console.log(data)
-         uniqueCategories = [...new Set(data.organizations.map((org) => org.category))];
-         console.log(uniqueCategories,"here")
+        e.preventDefault();
       
-    }
+        if (formState.category === "") {
+          console.log("Need to Select a category!");
+        } else {
+          try {
+            // Ensure image is not null and has a valid URL
+            if (image) {
+              const imageUploadResponse = await uploadImage(image);
+              console.log("Image upload response:", imageUploadResponse);
+      
+              const mutationResponse = await makeOrganization({
+                variables: {
+                  name: formState.name,
+                  description: formState.description,
+                  category: formState.category,
+                  image: imageUploadResponse,  // Update with the correct image URL
+                },
+              });
+      
+              console.log("Mutation response:", mutationResponse);
+            } else {
+              console.error("Image is null or invalid.");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      };
+      
+      const uploadImage = async (imageFile) => {
+        try {
+          const formData = new FormData();
+          formData.append('image', imageFile);
+      
+          // Replace 'http://your_domain.com/upload' with your actual server's upload endpoint
+          const response = await axios.post('http://localhost:4000/upload', formData);
+      
+          // Assuming the server responds with the image URL
+          return response.data.imageUrl;
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          throw new Error('Image upload failed');
+        }
+      };
+      
+let uniqueCategories = []
+if (data && data.organizations) {
+  uniqueCategories = [...new Set(data.organizations.map((org) => org.category))];
+}
    
 //  const styles = {
 
@@ -70,6 +98,7 @@ let uniqueCategories = []
       </Form.Group>
       <Form.Label>Category</Form.Label>
       <Form.Select aria-label="Default select example" name="category"  onChange={handleChange}>
+        
       <option value="">Select a category</option> 
       {!loading &&
         uniqueCategories.map((category, index) => (
@@ -78,6 +107,10 @@ let uniqueCategories = []
           </option>
         ))}
     </Form.Select>
+        <Form.Group className="mb-3">
+                    <Form.Label>Image</Form.Label>
+                    <Form.Control name="image" type="file" accept="image/*" onChange={handleImageChange} />
+                </Form.Group>
     <Button variant="primary" type="submit">
         Submit
       </Button>
