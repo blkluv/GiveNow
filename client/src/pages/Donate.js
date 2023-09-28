@@ -24,7 +24,7 @@ const Donate = () => {
           <div className='inputdiv'>
           <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Sort by Category
+        {selectedCategory? selectedCategory : "Filter By Category"}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -36,7 +36,7 @@ const Donate = () => {
         <Dropdown.Item onClick={() => filterOrganizationsByCategory("Environmental")}>Environmental</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-      <input type="text" id="myInput" value={searchQuery} onChange={handleSearchInputChange}  placeholder="Search for org by name" title="Type in a name"></input>
+      <input type="text" id="myInput" value={searchQuery} onChange={handleSearchInputChange}  placeholder="Search org by name..." title="Type in a name"></input>
       </div>
         </>
       )}

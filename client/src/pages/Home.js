@@ -70,7 +70,7 @@ return(
 <div style={styles.dasha}>
   Promoted Charitys
   <div style={styles.Carouselconatiner}>
-    {/* TODO hard code promoted? Add query to get most popular */}
+    {/* TODO hard code promoted?*/}
   <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
       <Link to='/singleorg/650ca9e582c5da1b8ea5b180'>
@@ -127,7 +127,6 @@ return(
                   <Carousel.Caption>
                     <h3>{org.name}</h3>
                     <p>{org.description}</p>
-                    {/*TODO Add button functionality?! */}
                     <button onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             
