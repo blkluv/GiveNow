@@ -4,7 +4,6 @@ import { GET_ORGANIZATION } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Spinner from 'react-bootstrap/Spinner';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import StripeContainer from "../components/StripeContainer";
 const divStyle = {
@@ -19,7 +18,16 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         padding: '5%'
-    }
+    },
+    singleOrg: {
+      textAlign: "center",
+      margin: "1%",
+      padding: "1%",
+      border: "1px solid black"
+  },
+  preAmountDiv: {
+    display: "flex"
+}
 }
 function SingleOrgPage(props) {
   //  console.log(props,"hi kai")
@@ -72,13 +80,14 @@ function SingleOrgPage(props) {
   const organization = data?.org; 
   //need to replace base url for image to show
   const baseUrl = 'http://localhost:3000'; 
-const fullImageUrl = `${baseUrl}/${organization.image}`;
-  console.log(organization,"---------here")
+const cardImageUrl = organization.image.startsWith('http') ? organization.image :  `${baseUrl}/${organization.image}`;
+
+  // console.log(organization,"---------here")
   // use info from props and data from query
   return (
     <div style={styles.container} >
-       <Card style={{ width: '40rem' }}>
-      <Card.Img variant="top" src={fullImageUrl} />
+       <Card style={{ width: '40rem', alignSelf: 'center', textAlign: 'center'}}>
+      <Card.Img variant="top" src={cardImageUrl} />
       <Card.Body>
         <Card.Title>{organization.name}</Card.Title>
         <Card.Text>
@@ -88,7 +97,9 @@ const fullImageUrl = `${baseUrl}/${organization.image}`;
         {/* <Button variant="primary">Donate</Button> */}
       </Card.Body>
     </Card>
-    <div className="preAmountDiv">
+    {showItem === false ? 
+    <div style={styles.singleOrg} >
+    <div style={styles.preAmountDiv}>
                 <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 5.00 } })}>
                   ${(5.00).toFixed(2)}
                 </button>
@@ -113,10 +124,12 @@ const fullImageUrl = `${baseUrl}/${organization.image}`;
                 <span>USD</span>
                 <button className="button2" onClick={() => setItem(customAmounts * 100)}>GiveNow</button>
               </div>
-              {showItem && (
+              </div>
+              : 
+            
         <StripeContainer amount={amount} itemName={organization.name} description={organization.description} OrgID={organization._id} />
-      )}
-   
+     
+              }
     </div>
   );
 }

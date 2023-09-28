@@ -4,6 +4,8 @@ import ExampleCarouselImage from '../components/styles/topdonor.png';
 import { GET_ORGANIZATIONS } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 const styles = {
     styles: {
         backgroundColor: "rgba(0, 0, 0, 0.6)"
@@ -31,7 +33,14 @@ const styles = {
       alignItems: 'flex-end'
     },
 }
+
 const Home = () => {
+  let navigate = useNavigate();
+  const buttonclick = (orgid) => {
+    console.log(orgid,"kaikane")
+    navigate(`/singleorg/${orgid}`)
+    window.scrollTo(0, 0)
+    }
   const { loading, data, error } = useQuery(GET_ORGANIZATIONS)
   const [index, setIndex] = useState(0);
 
@@ -41,7 +50,7 @@ const Home = () => {
   let top3DonatedOrganizations = 0;
   if(!loading){
     let organizations = [...data.organizations]; // Create a copy of the array
-console.log(organizations)
+// console.log(organizations)
     const sortedOrganizations = organizations.sort((a, b) => b.donationsmade - a.donationsmade);
     top3DonatedOrganizations = sortedOrganizations.slice(0, 3);
   }
@@ -119,7 +128,7 @@ return(
                     <h3>{org.name}</h3>
                     <p>{org.description}</p>
                     {/*TODO Add button functionality?! */}
-                    <button>GiveNow</button>
+                    <button onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             
                 
