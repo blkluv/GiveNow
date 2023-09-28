@@ -10,7 +10,8 @@ const Donate = () => {
   };
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
-    console.log(searchQuery,"search change")
+    // let temp = event.target.value;
+    // console.log(temp,"search change")
   };
 // if show item is true dont display category buttons
   const [showItem, setShowItem] = useState(false);
@@ -39,7 +40,7 @@ const Donate = () => {
       </div>
         </>
       )}
-      <Organization selectedCategory={selectedCategory} setShowItem={setShowItem} showItem={showItem} />
+      <Organization selectedCategory={selectedCategory} setShowItem={setShowItem} showItem={showItem} searchQuery={searchQuery} />
     </div>
   );
 };

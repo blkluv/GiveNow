@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 
-const Organization = ({ selectedCategory, setShowItem, showItem }) => {
+const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   const [amount, setAmount] = useState(0);
@@ -15,7 +15,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem }) => {
   const [customAmounts, setCustomAmounts] = useState({}); // State to store custom amounts
   const [orgdata, setorgdata] = useState("");
   const { loading, data, error } = useQuery(GET_ORGANIZATIONS)
-  console.log(data)
+  // console.log(data)
 
   // Function to set both amount, itemName, itemDescription, and OrgID
   const setItem = (name, price, description, orgid) => {
@@ -27,7 +27,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem }) => {
     setOrgID(orgid);
   };
 
-
+ 
   // Function to handle custom amount input change for a specific organization
   const handleCustomAmountChange = (event, org) => {
     const newCustomAmount = event.target.value;
@@ -37,9 +37,16 @@ const Organization = ({ selectedCategory, setShowItem, showItem }) => {
       [org._id]: parseFloat(newCustomAmount),
     }));
   };
+
+  
   if(!loading){
     let organizations = data.organizations
- 
+    //if there is a search query filter orgs and show results based on search
+    if (searchQuery) {
+       organizations = organizations.filter(org =>
+        org.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
   return (
     <div>
       {showItem ? (
@@ -53,7 +60,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem }) => {
       org={orgdata}
         onHide={() => setModalShow(false)}
       />
-           { organizations
+           { organizations.length? organizations
             .filter((org) => selectedCategory === null || org.category === selectedCategory)
             .map((org) => (
             <div className="singleOrg" key={org._id}>
@@ -89,7 +96,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem }) => {
               </div>
            
             </div>
-          ))}
+          )) : <h1>No Organiation Found</h1>}
         </div>
       )}
     </div>
