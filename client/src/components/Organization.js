@@ -4,7 +4,7 @@ import { GET_ORGANIZATIONS } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
-
+import Pagination from "./Pagination";
 const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) => {
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -43,7 +43,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
     }));
   };
 
-  
+  // TODO bug where chaging category on anything but first page doesnt show results desired
   if(!loading){
     let organizations = data.organizations;
 
@@ -83,9 +83,9 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
             <div className="singleOrg" key={org._id}>
               
               <h2>{org.name}</h2>
-              <h3>{org.description}</h3>
+              <p>{org.description}</p>
               <img alt={org.name} src={org.image} onClick={() => { setModalShow(true); setorgdata(org) }}/>
-              <h3>Donate to {org.name}</h3>
+              <p>Donate to {org.name}</p>
               <div className="preAmountDiv">
                 <button className="preAmount" onClick={() => handleCustomAmountChange({ target: { value: 5.00 } }, org)}>
                   ${(5.00).toFixed(2)}
@@ -131,26 +131,5 @@ else{
 };
 
 
-
-const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-            <button onClick={() => paginate(number)} className="page-link">
-              {number}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
 
 export default Organization;
