@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage from '../components/styles/topdonor.png';
 import { GET_ORGANIZATIONS } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
@@ -37,22 +36,27 @@ const styles = {
 const Home = () => {
   let navigate = useNavigate();
   const buttonclick = (orgid) => {
-    console.log(orgid,"kaikane")
+    //console.log(orgid,"kaikane")
     navigate(`/singleorg/${orgid}`)
     window.scrollTo(0, 0)
     }
   const { loading, data, error } = useQuery(GET_ORGANIZATIONS)
-  const [index, setIndex] = useState(0);
-
-  const handleSelect = (selectedIndex) => {
-    setIndex(selectedIndex);
-  };
+  if(error){
+console.log(error)
+  }
   let top3DonatedOrganizations = 0;
+  let lastthreenewlyaddedorgs = 0;
   if(!loading){
     let organizations = [...data.organizations]; // Create a copy of the array
-// console.log(organizations)
+ //console.log(organizations)
+ 
+ lastthreenewlyaddedorgs = organizations.slice(-3);
+//  console.log(lastthreenewlyaddedorgs,"hererere")
     const sortedOrganizations = organizations.sort((a, b) => b.donationsmade - a.donationsmade);
     top3DonatedOrganizations = sortedOrganizations.slice(0, 3);
+
+    
+   
   }
 return(
   <div >
@@ -68,50 +72,28 @@ return(
   </div>
 </div>
 <div style={styles.dasha}>
-  Promoted Charitys
+  newly Added
+  {loading? <p>loading newly added charitys...</p> :
+ 
   <div style={styles.Carouselconatiner}>
-    {/* TODO hard code promoted?*/}
-  <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-      <Link to='/singleorg/650ca9e582c5da1b8ea5b180'>
-      <img
-              className="d-block w-100"
-              src={ExampleCarouselImage}
-              alt="First slide"
-            />
-              </Link>
-      
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img
-              className="d-block w-100"
-              src={ExampleCarouselImage}
-              alt="First slide"
-            />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-      <img
-              className="d-block w-100"
-              src={ExampleCarouselImage}
-              alt="First slide"
-            />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+   <Carousel>
+              {lastthreenewlyaddedorgs.map((org, idx) => (
+                <Carousel.Item key={idx}>
+                
+                    <img className="d-block w-100" src={org.image} alt={`Slide ${idx + 1}`} />
+                  
+                  <Carousel.Caption>
+                    <h3>{org.name}</h3>
+                    <p>{org.description}</p>
+                    <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
+                  </Carousel.Caption>
+            
+                
+                </Carousel.Item>
+              ))}
+            </Carousel>
     </div>
+}
 </div>
 <div style={styles.dasha}>
   Popular charitys
@@ -121,13 +103,13 @@ return(
    <Carousel>
               {top3DonatedOrganizations.map((org, idx) => (
                 <Carousel.Item key={idx}>
-                  <Link to={`/singleorg/${org._id}`}>
+                  
                     <img className="d-block w-100" src={org.image} alt={`Slide ${idx + 1}`} />
-                  </Link>
+                
                   <Carousel.Caption>
                     <h3>{org.name}</h3>
                     <p>{org.description}</p>
-                    <button onClick={() => buttonclick(org._id)}>GiveNow</button>
+                    <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             
                 

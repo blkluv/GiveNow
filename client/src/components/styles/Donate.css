@@ -10,3 +10,12 @@
 .btncat{
     margin: 1%;
 }
+
+@media screen and (max-width: 360px ) {
+    .inputdiv{
+      flex-direction: column;
+      align-items: center;
+    }
+  
+  
+  }

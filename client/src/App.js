@@ -19,6 +19,7 @@ import Footer from "./components/Footer"
 import About from "./pages/About";
 import SingleOrgPage from "./pages/SingleOrgPage";
 import Addorg from "./pages/Addorg";
+import Pagenotfound from "./pages/404page"
 export default function App() {
   // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -50,7 +51,7 @@ return (
       <Navbar />
      
   <Routes>
-
+  <Route path="*" element={< Pagenotfound/>} />
       <Route path="/successpage" element={<SuccessPage/>} />
       
         <Route exact path="/" element={<Home/>} /> 

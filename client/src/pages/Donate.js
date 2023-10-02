@@ -21,7 +21,6 @@ const Donate = () => {
       {!showItem && (
         <>
           {/* <h3 className='donateh1'>Sort by categories:</h3> */}
-          {/* TODO make responsive category/search */}
           <div className='inputdiv'>
           <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">

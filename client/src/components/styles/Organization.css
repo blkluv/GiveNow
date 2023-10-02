@@ -19,8 +19,11 @@ img{
 
 .preAmountDiv{
     display: flex;
+    justify-content: space-around;
+
 }
 .preAmount{
+    
     display: block;
 	font-size: 16px;
 	width: calc(100% - 30px);
@@ -39,7 +42,7 @@ img{
 
 	transform: scale(0.99);
 }
-/* TODO add media for galaxy fold */
+
 @media (max-width: 1225px) {
 
     .singleOrg{
@@ -60,4 +63,15 @@ img{
         border: 1px solid black;
         width: 90%;
     }
+  }
+  @media (max-width: 310px) {
+
+    .singleOrg{
+        text-align: center;
+        margin: 1%;
+        padding: 1%;
+        border: 1px solid black;
+        width: 95%;
+    }
+
   }

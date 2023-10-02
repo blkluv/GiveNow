@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 //Pagnation component
 
@@ -19,12 +19,14 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
       if (currentPage > 1) {
         paginate(currentPage - 1);
       }
+      window.scrollTo(0, 100)
     };
   
     const handleNextClick = () => {
       if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
         paginate(currentPage + 1);
       }
+      window.scrollTo(0, 100)
     };
   
     return (
@@ -38,7 +40,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
           </li>
           {pageNumbers.map((number) => (
             <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-              <button onClick={() => paginate(number)} className="page-link">
+              <button onClick={() => paginate(number) } className="page-link">
                 {number}
               </button>
             </li>
