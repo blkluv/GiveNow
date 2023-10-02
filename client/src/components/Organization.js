@@ -41,6 +41,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
       ...prevCustomAmounts,
       [org._id]: parseFloat(newCustomAmount),
     }));
+    console.log(newCustomAmount)
   };
 
   // TODO bug where chaging category on anything but first page doesnt show results desired
@@ -101,6 +102,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
                 </button>
               </div>
               <div>
+                {/* TODO fix custom amount when entering cents with custom amount bugs  */}
                 <span>$</span>
                 <input
                   type="number"

@@ -111,7 +111,9 @@ const handleSubmit = async (e) => {
   return (
 <>
 {!success ?
+
 <form onSubmit={handleSubmit} style={styles.form}>
+  <h3>amount being charge: {props.amount}</h3>
 <fieldset className="FormGroup">
   <div className="FormRow">
     <CardElement options={CARD_OPTIONS}/>

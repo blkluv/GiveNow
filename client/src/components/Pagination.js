@@ -40,6 +40,7 @@ const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
           </li>
           {pageNumbers.map((number) => (
             <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+              {/* TODO add onclick to scroll to top for number click */}
               <button onClick={() => paginate(number) } className="page-link">
                 {number}
               </button>
