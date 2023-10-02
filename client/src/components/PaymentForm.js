@@ -82,19 +82,21 @@ const handleSubmit = async (e) => {
         console.log("Successful payment");
         try {
           
-        } catch (error) {
-          
-        }
+        
         const mutationResponse = await makeDonation({
           variables: {
             organization: props.OrgID,
             amount: props.amount,
           },
         });
-
         console.log("Mutation response:", mutationResponse);
 
         setSuccess(true);
+      }
+      catch (error) {
+          console.log(error,"mutation error")
+        }
+      
       }
     } catch (error) {
       console.error("Error:", error);
