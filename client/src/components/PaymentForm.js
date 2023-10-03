@@ -67,7 +67,7 @@ const handleSubmit = async (e) => {
       const { id } = paymentMethod;
       console.log("Stripe payment method ID:", id);
       console.log("email", email)
-   
+      console.log("amount", props)
 
       const response = await axios.post("http://localhost:4000/payment", {
         amount: props.amount,
@@ -107,13 +107,16 @@ const handleSubmit = async (e) => {
   }
 };
 
-
+function formatAmount(amount) {
+  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
   return (
 <>
 {!success ?
 
 <form onSubmit={handleSubmit} style={styles.form}>
-  <h3>amount being charge: {props.amount}</h3>
+<h3>amount being charged: {formatAmount(props.amount / 100)}$</h3>
+
 <fieldset className="FormGroup">
   <div className="FormRow">
     <CardElement options={CARD_OPTIONS}/>

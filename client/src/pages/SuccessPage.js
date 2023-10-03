@@ -41,7 +41,6 @@ const SuccessPage = (Sucprops) => {
     return <Wrongpage/>
   } else {
     return (
-      // TODO add back to home page button or make another Donation button. Reset state or reload?
       <div style={styles.div}>
         <h2>
           You Just Donated {((Sucprops.Sucprops.amount || 0) / 100).toFixed(2)}$ to{' '}

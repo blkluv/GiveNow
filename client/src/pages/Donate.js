@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import Organization from '../components/Organization';
 import '../components/styles/Donate.css'
 import Dropdown from 'react-bootstrap/Dropdown';
+
 const Donate = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [ selectedCategory, updateSelectedCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const filterOrganizationsByCategory = (category) => {
-    setSelectedCategory(category);
+    updateSelectedCategory(category);
   };
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);

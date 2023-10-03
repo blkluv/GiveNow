@@ -18,10 +18,17 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
    const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   // console.log(data)
+
+  useEffect(() => {
+    // Reset currentPage whenever selectedCategory changes
+    setCurrentPage(1);
+  }, [selectedCategory]);
+  
   useEffect(() => {
     // Reset currentPage whenever searchQuery changes
     setCurrentPage(1);
   }, [searchQuery]);
+  
   // Function to set both amount, itemName, itemDescription, and OrgID
   const setItem = (name, price, description, orgid) => {
     setShowItem(true);
@@ -36,15 +43,33 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
   // Function to handle custom amount input change for a specific organization
   const handleCustomAmountChange = (event, org) => {
     const newCustomAmount = event.target.value;
-    // Update the customAmounts dictionary with the custom amount for the specific organization
-    setCustomAmounts((prevCustomAmounts) => ({
-      ...prevCustomAmounts,
-      [org._id]: parseFloat(newCustomAmount),
-    }));
-    console.log(newCustomAmount)
+  
+    // Use regex to allow only xx.xx format for USD amounts
+    const isValidAmount = /^\d+(\.\d{1,2})?$/.test(newCustomAmount);
+  
+    if (isValidAmount) {
+      const amountInDollars = parseFloat(newCustomAmount);
+  
+      // Check if the amount is within the allowed limit (1,000,000)
+      if (amountInDollars <= 1000000) {
+        // Update the customAmounts dictionary with the custom amount for the specific organization
+        setCustomAmounts((prevCustomAmounts) => ({
+          ...prevCustomAmounts,
+          [org._id]: amountInDollars,
+        }));
+      } else {
+        // Alert the user or handle the case where the amount exceeds the limit
+        alert('Amount cannot exceed 1,000,000 USD.');
+      }
+    } else {
+      // Alert the user or handle the case where the input is not in the correct format
+      // alert('Please enter a valid USD amount (e.g., xx.xx).');
+    }
   };
+  
+  
 
-  // TODO bug where chaging category on anything but first page doesnt show results desired
+
   if(!loading){
     let organizations = data.organizations;
 
@@ -66,8 +91,10 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
     const currentItems = filteredOrganizations.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
+   
   return (
     <div>
+      {/* shows stripecontatiner when donate button is clicked */}
       {showItem ? (
         
         <StripeContainer amount={amount} itemName={itemName} description={itemDescription} OrgID={OrgID} />
@@ -102,7 +129,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
                 </button>
               </div>
               <div>
-                {/* TODO fix custom amount when entering cents with custom amount bugs  */}
+
                 <span>$</span>
                 <input
                   type="number"
@@ -121,7 +148,10 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
         )}
         </div>
       )}
-      <Pagination itemsPerPage={itemsPerPage} totalItems={organizations.length} paginate={paginate} currentPage={currentPage} />
+      {/* hides pagnation when donate button is clicked */}
+      { !showItem && (
+      <Pagination itemsPerPage={itemsPerPage} totalItems={organizations.length} paginate={paginate} currentPage={currentPage} category={selectedCategory} />
+      )}
     </div>
   );
 }
