@@ -84,7 +84,7 @@ return(
                   
                   <Carousel.Caption>
                     <h3>{org.name}</h3>
-                    <p>{org.description}</p>
+                    <p>{org.shortdescription}</p>
                     <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             
@@ -108,7 +108,7 @@ return(
                 
                   <Carousel.Caption>
                     <h3>{org.name}</h3>
-                    <p>{org.description}</p>
+                    <p>{org.shortdescription}</p>
                     <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             

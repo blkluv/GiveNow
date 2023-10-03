@@ -26,6 +26,7 @@ const typeDefs = gql`
  _id: ID!
  name: String!
  description: String!
+ shortdescription: String!
  amountraised: Int
 category: String!
 image: String
@@ -52,7 +53,7 @@ donationsmade: Int
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     makeDonation(amount: Int!, organization: ID!): Donation
-    makeOrganization(name: String!, description: String!, amountraised: Int, category: String!, image: String): Organization
+    makeOrganization(name: String!, description: String!, shortdescription: String!, amountraised: Int, category: String!, image: String): Organization
   }
 `;
 

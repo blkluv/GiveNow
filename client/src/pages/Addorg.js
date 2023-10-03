@@ -13,6 +13,7 @@ const Addorg = () => {
         name: "",
         description: "",
         category: "",
+        shortdescription: ""
       });
       const [image, setImage] = useState(null);
 
@@ -44,6 +45,7 @@ const Addorg = () => {
                 variables: {
                   name: formState.name,
                   description: formState.description,
+                  shortdescription: formState.shortdescription,
                   category: formState.category,
                   image: imageUploadResponse,  // Update with the correct image URL
                 },
@@ -93,8 +95,12 @@ if (data && data.organizations) {
         <Form.Control name= "name" type="text" required={true} placeholder="org name..." onChange={handleChange} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Description</Form.Label>
-        <Form.Control as="textarea" rows={3} required={true}  name="description" placeholder="org description..." onChange={handleChange} />
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Short Description</Form.Label>
+        <Form.Control as="textarea" rows={2} required={true} min={1} maxLength={50}  name="shortdescription" placeholder="Short description describing your org..." onChange={handleChange} />
+      </Form.Group>
+        <Form.Label>Detailed Description</Form.Label>
+        <Form.Control as="textarea" rows={3} required={true}  name="description" placeholder="Detailed org description..." onChange={handleChange} />
       </Form.Group>
       <Form.Label>Category</Form.Label>
       <Form.Select aria-label="Default select example" name="category"  onChange={handleChange}>

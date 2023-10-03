@@ -34,10 +34,11 @@ mutation makeDonation($amount: Int!, $organization: ID!) {
 `;
 
 export const MAKE_ORGANIZATION = gql`
-mutation MakeOrganization($name: String!, $description: String!, $category: String!, $image: String) {
-  makeOrganization(name: $name, description: $description, category: $category, image: $image) {
+mutation MakeOrganization($name: String!, $description: String!, $category: String!, $image: String, $shortdescription: String!) {
+  makeOrganization(name: $name, description: $description, category: $category, image: $image, shortdescription: $shortdescription) {
     _id
     name
+    shortdescription
     description
     image
   }

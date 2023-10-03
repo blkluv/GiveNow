@@ -28,7 +28,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
     // Reset currentPage whenever searchQuery changes
     setCurrentPage(1);
   }, [searchQuery]);
-  
+
   // Function to set both amount, itemName, itemDescription, and OrgID
   const setItem = (name, price, description, orgid) => {
     setShowItem(true);
@@ -111,7 +111,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
             <div className="singleOrg" key={org._id}>
               
               <h2>{org.name}</h2>
-              <p>{org.description}</p>
+              <p>{org.shortdescription}</p>
               <img alt={org.name} src={org.image} onClick={() => { setModalShow(true); setorgdata(org) }}/>
               <p>Donate to {org.name}</p>
               <div className="preAmountDiv">

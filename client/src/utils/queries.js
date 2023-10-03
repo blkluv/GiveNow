@@ -63,6 +63,7 @@ query Query {
   organizations {
     _id
     name
+    shortdescription
     description
     category
     amountraised

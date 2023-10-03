@@ -7,6 +7,11 @@ const organizationSchema = new Schema({
   },
   description: {
     type: String,
+    required: true
+  },
+  shortdescription:{
+    type: String,
+    required: true
   },
   amountraised:{
     type: Number,
