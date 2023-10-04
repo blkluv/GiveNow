@@ -1,5 +1,5 @@
 import React from 'react';
-
+// TODO Add content and style
 const About = () => {
  const styles = {
   h1:{

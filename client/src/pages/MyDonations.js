@@ -3,6 +3,7 @@ import auth from '../utils/auth';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import topdonor from '../components/styles/topdonor.png'
+// TODO style and make responsive
 const styles = {
   donationsDivStyle: {
     background: 'white',

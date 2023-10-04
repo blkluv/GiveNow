@@ -2,7 +2,6 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { GET_ORGANIZATIONS } from "../utils/queries";
 import { useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -71,6 +70,7 @@ return(
     </div>
   </div>
 </div>
+{/* TODO Make responsive */}
 <div style={styles.dasha}>
   newly Added
   {loading? <p>loading newly added charitys...</p> :
@@ -95,6 +95,7 @@ return(
     </div>
 }
 </div>
+{/* TODO Make responsive */}
 <div style={styles.dasha}>
   Popular charitys
   {loading? <p>loading popular charitys...</p> :
@@ -107,6 +108,7 @@ return(
                     <img className="d-block w-100" src={org.image} alt={`Slide ${idx + 1}`} />
                 
                   <Carousel.Caption>
+                    {/* TODO add background so details are more visible with background colors */}
                     <h3>{org.name}</h3>
                     <p>{org.shortdescription}</p>
                     <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>

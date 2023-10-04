@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { MAKE_ORGANIZATION } from '../utils/mutations';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+/* TODO add a route to add org */
 const Addorg = () => {
     const [makeOrganization] = useMutation(MAKE_ORGANIZATION);
     const { loading, data, error } = useQuery(GET_ORGANIZATIONS2)

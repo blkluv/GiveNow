@@ -1,5 +1,5 @@
 
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GET_ORGANIZATION } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -12,23 +12,7 @@ const divStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 };
-const styles = {
-    container:{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: '5%'
-    },
-    singleOrg: {
-      textAlign: "center",
-      margin: "1%",
-      padding: "1%",
-      border: "1px solid black"
-  },
-  preAmountDiv: {
-    display: "flex"
-}
-}
+
 function SingleOrgPage(props) {
   //  console.log(props,"hi kai")
   const [showItem, setShowItem] = useState(false);
@@ -39,6 +23,47 @@ function SingleOrgPage(props) {
     variables: { orgId: id },
   });
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Attach event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const styles = {
+    card: {
+      width: width < 780 ? '95%' : '45rem', 
+      alignSelf: 'center', 
+      textAlign: 'center'
+    },
+      container:{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '5%'
+      },
+      singleOrg: {
+        textAlign: "center",
+        margin: "1%",
+        padding: "1%",
+        border: "1px solid black",
+        width: width < 780 ? '95%' : '45rem', 
+        alignSelf: 'center'
+    },
+    preAmountDiv: {
+      display: "flex"
+  }
+  }
+//
   const setItem = ( price) => {
     setAmount(price);
     setShowItem(true)
@@ -66,8 +91,7 @@ function SingleOrgPage(props) {
   }
 
 
-
-
+ 
   // Handle errors
   if (error) {
     return (
@@ -81,19 +105,22 @@ function SingleOrgPage(props) {
   //need to replace base url for image to show
   const baseUrl = 'http://localhost:3000'; 
 const cardImageUrl = organization.image.startsWith('http') ? organization.image :  `${baseUrl}/${organization.image}`;
-
+function formatAmount(amount) {
+  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
   // console.log(organization,"---------here")
   // use info from props and data from query
   return (
     <div style={styles.container} >
-       <Card style={{ width: '40rem', alignSelf: 'center', textAlign: 'center'}}>
+     
+       <Card style={styles.card}>
       <Card.Img variant="top" src={cardImageUrl} />
       <Card.Body>
         <Card.Title>{organization.name}</Card.Title>
         <Card.Text>
           {organization.description}
         </Card.Text>
-        <Card.Footer>Amount Raised: {organization.amountraised}</Card.Footer>
+        <Card.Footer>Amount Raised: {formatAmount(organization.amountraised / 100)}$</Card.Footer>
         {/* <Button variant="primary">Donate</Button> */}
       </Card.Body>
     </Card>
