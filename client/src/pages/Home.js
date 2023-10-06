@@ -15,7 +15,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     },
     Carouselconatiner: {
-      width: '50%',
+      width: '70%',
     
     },
     dasha: {
@@ -30,6 +30,9 @@ const styles = {
       flexDirection: 'column',
       alignItems: 'flex-end'
     },
+    divdetails: {
+      background: 'rgba(0, 0, 0, 0.6)'
+    }
 }
 
 const Home = () => {
@@ -83,8 +86,10 @@ return(
                     <img className="d-block w-100" src={org.image} alt={`Slide ${idx + 1}`} />
                   
                   <Carousel.Caption>
-                    <h3>{org.name}</h3>
+                    <div style={styles.divdetails}>
+                    <h3 >{org.name}</h3>
                     <p>{org.shortdescription}</p>
+                    </div>
                     <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
                   </Carousel.Caption>
             
@@ -108,10 +113,12 @@ return(
                     <img className="d-block w-100" src={org.image} alt={`Slide ${idx + 1}`} />
                 
                   <Carousel.Caption>
-                    {/* TODO add background so details are more visible with background colors */}
+                    <div style={styles.divdetails}>
                     <h3>{org.name}</h3>
                     <p>{org.shortdescription}</p>
+                    </div>
                     <button className="button2" onClick={() => buttonclick(org._id)}>GiveNow</button>
+                    
                   </Carousel.Caption>
             
                 
