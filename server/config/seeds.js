@@ -1,6 +1,7 @@
 const db = require("./connection");
 const path = require('path');
 const Organization = require('../models/Organization');
+const User = require('../models/User');
 const organizationsData = [
   {
     name: "Green Cross",
@@ -44,6 +45,9 @@ const organizationsData = [
 db.once("open", async () => {
   await Organization.deleteMany();
   await Organization.insertMany(organizationsData);
-  console.log("Organizations Seeded");
+  await User.deleteMany()
+  console.log("Organizations Seeded/ Users reset");
   process.exit();
 });
+
+

@@ -70,12 +70,16 @@ function SingleOrg(props) {
         {organization.topDonors.length ?(
         <ul>
        {organization.topDonors.map((donor, index) =>(
-          <li key={`donor_${index}`}>
-            <a href={donor.user ? `user/${donor.user._id}` : '#'}>{donor.user ? donor.user.username || "Anon" : "Anon"}</a> &nbsp;
-
-          {(donor.donationAmount / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-
-          </li>
+       <li key={`donor_${index}`}>
+       {donor.user && donor.user.username !== "Anon" ? (
+         <a href={`user/${donor.user._id}`}>{donor.user.username}</a>
+       ) : (
+         "Anon"
+       )}
+       &nbsp;
+       {(donor.donationAmount / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+     </li>
+     
         ))}
         
         </ul>)
