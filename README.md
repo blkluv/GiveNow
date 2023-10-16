@@ -1,5 +1,11 @@
 # GiveNow
 "GiveNow" is a web application that allows users to make quick and secure donations to their favorite charities or causes. It provides an easy way for users to support the causes they care about by making online payments through Stripe.
+
+## How to use
+- clone project
+- npm install
+- add a .env folder inside the root of the server folder
+- add REACT_APP_STRIPE_SECRET_TEST= "YOUR STRIPE SECRET KEY"
 <!-- to do -->
 <!-- Key Features:
 
