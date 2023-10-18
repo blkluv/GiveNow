@@ -209,6 +209,12 @@ org: async (parent, args) => {
           return Org;
         
       },
+      removeOrganization: async (parent, { orgId}, context) => {
+        // Check if the user is authenticated (optional)
+        return Organization.findOneAndDelete({ _id: orgId });
+         
+        
+      },
     
 
     },
