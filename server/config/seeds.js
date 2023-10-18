@@ -1,4 +1,5 @@
 const db = require("./connection");
+const fs = require('fs');
 const path = require('path');
 const Organization = require('../models/Organization');
 const User = require('../models/User');
@@ -40,14 +41,29 @@ const organizationsData = [
   },
   // Add more organizations as needed
 ];
+const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
 
+const deleteFilesInUploadsFolder = () => {
+  fs.readdirSync(uploadsFolderPath).forEach(file => {
+    const filePath = path.join(uploadsFolderPath, file);
+    fs.unlinkSync(filePath);
+  });
+  console.log("Files in uploads folder deleted.");
+  
+};
 
-db.once("open", async () => {
+const seedDatabase = async () => {
   await Organization.deleteMany();
   await Organization.insertMany(organizationsData);
-  await User.deleteMany()
-  console.log("Organizations Seeded/ Users reset");
+  await User.deleteMany();
+
+  // Delete files in the uploads folder
+  deleteFilesInUploadsFolder();
+
+  console.log("Organizations seeded, users reset, and files in uploads folder deleted.");
   process.exit();
-});
+};
+
+db.once("open", seedDatabase);
 
 
