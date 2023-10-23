@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Organization = require('../models/Organization');
 const User = require('../models/User');
+const bcrypt = require("bcrypt");
 const organizationsData = [
   {
     name: "Green Cross",
@@ -56,7 +57,17 @@ const seedDatabase = async () => {
   await Organization.deleteMany();
   await Organization.insertMany(organizationsData);
   await User.deleteMany();
+ await User.insertMany([
+    {
+      username: "Kai",
+      email: "Kaiadmin@example.com",
+      password: await bcrypt.hash("password12345", 10),
+      isAdmin: true,
+    },
 
+  ]);
+
+  console.log("Users Seeded");
   // Delete files in the uploads folder
   deleteFilesInUploadsFolder();
 

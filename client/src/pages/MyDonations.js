@@ -3,7 +3,7 @@ import auth from '../utils/auth';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import topdonor from '../components/styles/topdonor.png'
-
+import { useNavigate } from 'react-router-dom';
 import '../components/styles/mydonations.css'
 // TODO style and make responsive
 const styles = {
@@ -27,7 +27,14 @@ const styles = {
   },
 
 };
+
 const MyDonations = () => {
+
+  const navigate = useNavigate();
+const redirect = () => {
+  console.log("redirect")
+  navigate('/addorg')
+}
   const { loading, data, refetch } = useQuery(GET_ME, {
     pollInterval: 60000,
   });
@@ -51,6 +58,8 @@ const MyDonations = () => {
         <h2>userinfo</h2>
           <p>username: {data.me.username}</p>
           <p>email: {data.me.email}</p>
+          {data.me.isAdmin === true? <p>Role: Admin</p> : null}
+          {data.me.isAdmin === true? <button onClick={redirect}>Add an Org</button> : null}
           </div>
           <div className='badgesection'>
           <h2>Badges</h2>

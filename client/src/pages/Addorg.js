@@ -4,10 +4,12 @@ import { GET_ORGANIZATIONS2 } from "../utils/queries";
 import { useQuery } from '@apollo/client';
 import { useMutation } from "@apollo/client";
 import { MAKE_ORGANIZATION } from '../utils/mutations';
+import { GET_ME } from '../utils/queries';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-/* TODO add a route to add org */
+
 const Addorg = () => {
+  const { loading: loading2, data: data2 } = useQuery(GET_ME);
     const [makeOrganization] = useMutation(MAKE_ORGANIZATION);
     const { loading, data, error } = useQuery(GET_ORGANIZATIONS2)
     const [formState, setFormState] = useState({
@@ -86,7 +88,10 @@ if (data && data.organizations) {
 //  const styles = {
 
 //  }
-
+if (loading2) {
+  return <p>Loading...</p>;
+}
+if (data2 && data2.me.isAdmin === true) {
     return (
       <div>
         <h1 >Addorg</h1>
@@ -125,6 +130,14 @@ if (data && data.organizations) {
       
       </div>
     );
+        }
+        else{
+          return(
+            <div>
+        <h1>Admin only!</h1>
+      </div>
+          )
+        }
   
 };
 
