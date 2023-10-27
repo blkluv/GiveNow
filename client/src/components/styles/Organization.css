@@ -6,6 +6,7 @@
     align-items: center;
 }
 .singleOrg{
+
     text-align: center;
     margin: 1%;
     padding: 1%;
@@ -42,7 +43,12 @@ img{
 
 	transform: scale(0.99);
 }
-
+ .removeorgbtn{
+    background-color:red;
+    position: relative;
+    left: 44%;
+   
+ }
 @media (max-width: 1225px) {
 
     .singleOrg{

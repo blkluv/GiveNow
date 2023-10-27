@@ -72,7 +72,7 @@ const seedDatabase = async () => {
   deleteFilesInUploadsFolder();
 
   console.log("Organizations seeded, users reset, and files in uploads folder deleted.");
-  process.exit();
+  process.exit();4242424242424242424242424242424242424
 };
 
 db.once("open", seedDatabase);

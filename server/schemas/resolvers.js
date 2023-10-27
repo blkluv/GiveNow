@@ -209,7 +209,7 @@ org: async (parent, args) => {
           return Org;
         
       },
-      // TODO add route/ way for someone to remove org and image
+      
       removeOrganization: async (parent, { orgId}, context) => {
         // Check if the user is authenticated (optional)
         
@@ -231,7 +231,7 @@ org: async (parent, args) => {
         }
         await Organization.findOneAndDelete({ _id: orgId });
       },
-    
+    //TODO add way to edit org info
 
     },
   };

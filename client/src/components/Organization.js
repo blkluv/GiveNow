@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
 import StripeContainer from "../components/StripeContainer";
 import { GET_ORGANIZATIONS } from "../utils/queries";
+import { REMOVE_ORGANIZATION } from "../utils/mutations";
 import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 import Pagination from "./Pagination";
+import { GET_ME } from '../utils/queries';
+import { useMutation } from '@apollo/client';
 const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) => {
   const [modalShow, setModalShow] = React.useState(false);
-
+  const { loading: loading2, data: data2 } = useQuery(GET_ME);
+  const [removeOrg] = useMutation(REMOVE_ORGANIZATION);
   const [amount, setAmount] = useState(0);
   const [itemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [OrgID, setOrgID] = useState("");
   const [customAmounts, setCustomAmounts] = useState({}); // State to store custom amounts
   const [orgdata, setorgdata] = useState("");
-  const { loading, data, error } = useQuery(GET_ORGANIZATIONS)
+  const { loading, data, error, refetch } = useQuery(GET_ORGANIZATIONS)
    const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   // console.log(data)
@@ -92,6 +96,25 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
    
+    //function to remove org
+    const startremoveOrg = async (orgid) => {
+      const confirmed = window.confirm("Permanently Delete Organization?");
+  
+      if (confirmed) {
+          try {
+              const mutationResponse = await removeOrg({
+                  variables: {
+                      orgId: orgid
+                  }
+              });
+              console.log("Mutation response:", mutationResponse);
+refetch()
+          } catch (err) {
+              console.error(err);
+          }
+      }
+  };
+  
   return (
     <div>
       {/* shows stripecontatiner when donate button is clicked */}
@@ -109,8 +132,12 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
            {currentItems.length ? (
               currentItems.map(org => (
             <div className="singleOrg" key={org._id}>
-              
-              <h2>{org.name}</h2>
+              {data2 && data2.me && data2.me.isAdmin === true ? (
+    <button className="removeorgbtn" onClick={() => {startremoveOrg(org._id)}}>X</button>
+) : null}
+              <h2>{org.name}</h2> 
+
+
               <p>{org.shortdescription}</p>
               <img alt={org.name} src={org.image} onClick={() => { setModalShow(true); setorgdata(org) }}/>
               <p>Donate to {org.name}</p>
