@@ -44,3 +44,13 @@ mutation MakeOrganization($name: String!, $description: String!, $category: Stri
   }
 }
 `;
+
+export const REMOVE_ORGANIZATION = gql`
+mutation removeOrganization($orgId: ID!) {
+  removeOrganization(orgId: $orgId) {
+    _id
+    name
+  }
+}
+`;
+

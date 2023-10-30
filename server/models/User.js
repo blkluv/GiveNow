@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-// TODO add Admin? so admins only can add orgs?!
 const userSchema = new Schema(
   {
     username: {
@@ -25,6 +24,10 @@ const userSchema = new Schema(
       },
     ],
     topdoner: {
+      type: Boolean,
+      default: false
+    },
+    isAdmin: {
       type: Boolean,
       default: false
     }

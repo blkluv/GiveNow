@@ -23,7 +23,7 @@ const Footer = () => {
         <div className='footercontainer'>
 
           <div className="social-links">
-            <h4>Socials</h4>
+            <h4 className='footerh4'>Socials</h4>
             <a  className="custom-color" href="https://twitter.com/yourtwitter" target="_blank" rel="noopener noreferrer">
               <i className="bi bi-twitter"></i>
             </a>
@@ -35,7 +35,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="footercontact">
-            <h4>Contact</h4>
+            <h4 className='footerh4'>Contact</h4>
             <a className="custom-color" href="http://maps.google.com/?q=San Antonio Texas"><i className="bi bi-house-fill"></i>Address</a>
             <p className='footercontactptag'>San Antonio Texas</p>
             <a className="custom-color" href="mailto:kaikane3457@hotmail.com"><i className="bi bi-envelope-fill"></i>Email</a>
@@ -44,7 +44,7 @@ const Footer = () => {
             <p className='footercontactptag'>555-555-5555</p>
           </div>
           <div className="footer-navigation text-center">
-            <h4>Links</h4>
+            <h4 className='footerh4'>Links</h4>
             <Link className="footer-link custom-color" to="/" onClick={scrollToTop}>
               Home
             </Link>

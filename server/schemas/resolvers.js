@@ -209,7 +209,29 @@ org: async (parent, args) => {
           return Org;
         
       },
-    
+      
+      removeOrganization: async (parent, { orgId}, context) => {
+        // Check if the user is authenticated (optional)
+        
+        const fs = require('fs');
+        const path = require('path');
+        const organization = await Organization.findOne({ _id: orgId });
+        const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
+        if(organization.image){
+          const imageName = path.basename(organization.image);
+          const filePath = path.join(uploadsFolderPath, imageName);
+  
+          try {
+            fs.unlinkSync(filePath);
+            console.log(`File deleted.`);
+          } catch (err) {
+            console.error(`Error deleting the file:`, err);
+          }
+        
+        }
+        await Organization.findOneAndDelete({ _id: orgId });
+      },
+    //TODO add way to edit org info
 
     },
   };

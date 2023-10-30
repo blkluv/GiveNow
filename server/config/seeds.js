@@ -1,6 +1,9 @@
 const db = require("./connection");
+const fs = require('fs');
 const path = require('path');
 const Organization = require('../models/Organization');
+const User = require('../models/User');
+const bcrypt = require("bcrypt");
 const organizationsData = [
   {
     name: "Green Cross",
@@ -39,11 +42,39 @@ const organizationsData = [
   },
   // Add more organizations as needed
 ];
+const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
 
+const deleteFilesInUploadsFolder = () => {
+  fs.readdirSync(uploadsFolderPath).forEach(file => {
+    const filePath = path.join(uploadsFolderPath, file);
+    fs.unlinkSync(filePath);
+  });
+  console.log("Files in uploads folder deleted.");
+  
+};
 
-db.once("open", async () => {
+const seedDatabase = async () => {
   await Organization.deleteMany();
   await Organization.insertMany(organizationsData);
-  console.log("Organizations Seeded");
-  process.exit();
-});
+  await User.deleteMany();
+ await User.insertMany([
+    {
+      username: "Kai",
+      email: "Kaiadmin@example.com",
+      password: await bcrypt.hash("password12345", 10),
+      isAdmin: true,
+    },
+
+  ]);
+
+  console.log("Users Seeded");
+  // Delete files in the uploads folder
+  deleteFilesInUploadsFolder();
+
+  console.log("Organizations seeded, users reset, and files in uploads folder deleted.");
+  process.exit();4242424242424242424242424242424242424
+};
+
+db.once("open", seedDatabase);
+
+

@@ -1,0 +1,42 @@
+.badgeimg {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+      }
+.badgediv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   width: 200px;
+   height: 200px
+}
+.badgecontainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  justify-content: center;
+    border: 1px solid black;
+   width: 100%;
+}
+.userinfodiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+.userbadgediv{
+    display: flex;
+}
+
+.badgesection{
+    text-align: center;
+    margin-bottom: 1%;
+}
+@media (max-width: 830px) {
+    .userbadgediv{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+ 
+  }

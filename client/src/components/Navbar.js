@@ -49,7 +49,7 @@ const AppNavbar = () => {
   {Auth.loggedIn() ? (
    <>
       <Nav.Link as={Link} to='/mydonations'>
-        MyDonations
+        MyProfile
      </Nav.Link>
       <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
     </>

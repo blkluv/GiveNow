@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String!
     donations: [Donation]
     topdoner: Boolean
+    isAdmin: Boolean
   }
 
   type Donation {
@@ -54,6 +55,7 @@ donationsmade: Int
     addUser(username: String!, email: String!, password: String!): Auth
     makeDonation(amount: Int!, organization: ID!): Donation
     makeOrganization(name: String!, description: String!, shortdescription: String!, amountraised: Int, category: String!, image: String): Organization
+    removeOrganization(orgId: ID!): Organization
   }
 `;
 
