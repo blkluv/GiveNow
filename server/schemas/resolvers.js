@@ -232,7 +232,55 @@ org: async (parent, args) => {
         await Organization.findOneAndDelete({ _id: orgId });
       },
     //TODO add way to edit org info
-
+      removeOrganization: async (parent, { orgId}, context) => {
+        // Check if the user is authenticated (optional)
+        
+        const fs = require('fs');
+        const path = require('path');
+        const organization = await Organization.findOne({ _id: orgId });
+        const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
+        if(organization.image){
+          const imageName = path.basename(organization.image);
+          const filePath = path.join(uploadsFolderPath, imageName);
+  
+          try {
+            fs.unlinkSync(filePath);
+            console.log(`File deleted.`);
+          } catch (err) {
+            console.error(`Error deleting the file:`, err);
+          }
+        
+        }
+        await Organization.findOneAndDelete({ _id: orgId });
+      },
+     editOrganization: async (orgId, newData) => {
+        try {
+          // Check if the organization with the given orgId exists
+          const organization = await Organization.findOne(orgId);
+      
+          if (!organization) {
+            throw new Error('Organization not found');
+          }
+      
+          // Update the organization data with the new information
+          //TODO get update category to work
+          organization.name = newData.name || organization.name;
+          organization.description = newData.description || organization.description;
+          organization.shortdescription = newData.description || organization.shortdescription;
+          organization.category = newData.description || organization.category;
+          organization.image = newData.description || organization.image;
+          // Add more fields as needed
+      
+          // Save the updated organization
+          await organization.save();
+      
+          return organization; // Return the updated organization
+        } catch (err) {
+          console.error('Error editing the organization:', err);
+          throw err; // Rethrow the error for handling in your GraphQL resolver
+        }
+      }
+      
     },
   };
   

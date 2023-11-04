@@ -56,6 +56,7 @@ donationsmade: Int
     makeDonation(amount: Int!, organization: ID!): Donation
     makeOrganization(name: String!, description: String!, shortdescription: String!, amountraised: Int, category: String!, image: String): Organization
     removeOrganization(orgId: ID!): Organization
+    editOrganization(orgId: ID!, name: String, description: String, shortdescription: String, amountraised: Int, category: String, image: String) : Organization
   }
 `;
 
