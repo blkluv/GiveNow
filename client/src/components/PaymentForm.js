@@ -41,7 +41,7 @@ const CARD_OPTIONS = {
 }
 
 export default function PaymentForm(props) {
-  //console.log(props,"----------HERE---------------")
+  console.log(props,"----------HERE---------------")
   const [makeDonation] = useMutation(MAKE_DONATION);
 const [success, setSuccess] = useState(false)
 const stripe = useStripe()
@@ -110,6 +110,8 @@ const handleSubmit = async (e) => {
 function formatAmount(amount) {
   return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
+// TODO add more info to payment FORM like org info etc
+// TODO style
   return (
 <>
 {!success ?

@@ -45,36 +45,46 @@ const organizationsData = [
 const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
 
 const deleteFilesInUploadsFolder = () => {
+  if (!fs.existsSync(uploadsFolderPath)) {
+    console.log('The uploads folder does not exist. No files to delete.');
+    return;
+  }
+
   fs.readdirSync(uploadsFolderPath).forEach(file => {
     const filePath = path.join(uploadsFolderPath, file);
     fs.unlinkSync(filePath);
   });
-  console.log("Files in uploads folder deleted.");
-  
+
+  console.log('Files in uploads folder deleted.');
 };
+
 
 const seedDatabase = async () => {
-  await Organization.deleteMany();
-  await Organization.insertMany(organizationsData);
-  await User.deleteMany();
- await User.insertMany([
-    {
-      username: "Kai",
-      email: "Kaiadmin@example.com",
-      password: await bcrypt.hash("password12345", 10),
-      isAdmin: true,
-    },
+  try {
+    await Organization.deleteMany();
+    await Organization.insertMany(organizationsData);
+    await User.deleteMany();
+    await User.insertMany([
+      {
+        username: 'Kai',
+        email: 'Kaiadmin@example.com',
+        password: await bcrypt.hash('password12345', 10),
+        isAdmin: true,
+      },
+    ]);
 
-  ]);
+    console.log('Users Seeded');
 
-  console.log("Users Seeded");
-  // Delete files in the uploads folder
-  deleteFilesInUploadsFolder();
+    // Delete files in the uploads folder
+    deleteFilesInUploadsFolder();
 
-  console.log("Organizations seeded, users reset, and files in uploads folder deleted.");
-  process.exit();4242424242424242424242424242424242424
+    console.log('Organizations seeded, users reset, and files in uploads folder deleted.');
+    process.exit(0);
+  } catch (error) {
+    console.error('Error seeding the database:', error);
+    process.exit(1);
+  }
 };
 
-db.once("open", seedDatabase);
-
+db.once('open', seedDatabase);
 

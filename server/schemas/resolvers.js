@@ -231,7 +231,7 @@ org: async (parent, args) => {
         }
         await Organization.findOneAndDelete({ _id: orgId });
       },
-    //TODO add way to edit org info
+
       removeOrganization: async (parent, { orgId}, context) => {
         // Check if the user is authenticated (optional)
         
@@ -253,6 +253,8 @@ org: async (parent, args) => {
         }
         await Organization.findOneAndDelete({ _id: orgId });
       },
+
+      //TODO edit org info
      editOrganization: async (orgId, newData) => {
         try {
           // Check if the organization with the given orgId exists
