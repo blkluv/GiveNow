@@ -49,6 +49,12 @@ img{
     left: 44%;
    
  }
+ .editorgbtn{
+    background-color:orange;
+    position: relative;
+    right: 44%;
+   
+ }
 @media (max-width: 1225px) {
 
     .singleOrg{

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import StripeContainer from "../components/StripeContainer";
 import { GET_ORGANIZATIONS } from "../utils/queries";
-import { REMOVE_ORGANIZATION } from "../utils/mutations";
+import { REMOVE_ORGANIZATION, EDIT_ORGANIZATION } from "../utils/mutations";
 import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
 import Pagination from "./Pagination";
 import { GET_ME } from '../utils/queries';
 import { useMutation } from '@apollo/client';
+import EditOrganizationModal from "./EditOrg";
 const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) => {
   const [modalShow, setModalShow] = React.useState(false);
   const { loading: loading2, data: data2 } = useQuery(GET_ME);
@@ -22,7 +23,16 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
    const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   // console.log(data)
+  //Modal states
+  const [orgDataEdit, setOrgDataEdit] = useState(null);
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = (org) => {
+    setOrgDataEdit(org);
+    console.log(org)
+    setShow(true); // Assuming 'setShow' is used to show the modal
+  };
   useEffect(() => {
     // Reset currentPage whenever selectedCategory changes
     setCurrentPage(1);
@@ -114,9 +124,13 @@ refetch()
           }
       }
   };
-  
+  const starteditOrg = async (orgid) => {
+    console.log(orgid)
+  }
   return (
     <div>
+      {/* Modal Component for editing ORg */}
+      <EditOrganizationModal show={show} handleClose={handleClose} orgDataEdit={orgDataEdit} />
       {/* shows stripecontatiner when donate button is clicked */}
       {showItem ? (
         
@@ -133,7 +147,10 @@ refetch()
               currentItems.map(org => (
             <div className="singleOrg" key={org._id}>
               {data2 && data2.me && data2.me.isAdmin === true ? (
+                <div className="AdminBTNs">
     <button className="removeorgbtn" onClick={() => {startremoveOrg(org._id)}}>X</button>
+    <button className="editorgbtn" onClick={() => {handleShow(org)}}>&#9999;&#65039;</button>
+    </div>
 ) : null}
               <h2>{org.name}</h2> 
 

@@ -112,7 +112,7 @@ function formatAmount(amount) {
   // use info from props and data from query
   return (
     <div style={styles.container} >
-     
+     {/* TODO add edit/delete buttons */}
        <Card style={styles.card}>
       <Card.Img variant="top" src={cardImageUrl} />
       <Card.Body>

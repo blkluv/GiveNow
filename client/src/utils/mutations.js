@@ -53,4 +53,12 @@ mutation removeOrganization($orgId: ID!) {
   }
 }
 `;
-
+export const EDIT_ORGANIZATION = gql`
+mutation Mutation($orgId: ID!, $name: String, $description: String, $shortdescription: String, $category: String, $image: String) {
+  editOrganization(orgId: $orgId, name: $name, description: $description, shortdescription: $shortdescription, category: $category, image: $image) {
+    _id
+    amountraised
+    category
+  }
+}
+`;
