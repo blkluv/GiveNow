@@ -101,6 +101,24 @@ const startApolloServer = async (typeDefs, resolvers) => {
     })
   })
   };
+  //delete image for client side
+  app.post('/deleteImage', async (req, res) => {
+    const { imageURL } = req.body;
   
+    const fs = require('fs');
+    const path = require('path');
+    const uploadsFolderPath = path.join(__dirname, '..','client', 'public', 'uploads'); // Adjust this path
+    const imageName = path.basename(imageURL);
+    const filePath = path.join(uploadsFolderPath, imageName);
+  
+    try {
+      fs.unlinkSync(filePath);
+      console.log(`File deleted.`);
+      res.status(200).json({ message: 'File deleted successfully' });
+    } catch (err) {
+      console.error(`Error deleting the file:`, err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 // Call the async function to start the server
   startApolloServer(typeDefs, resolvers);

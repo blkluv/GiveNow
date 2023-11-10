@@ -29,14 +29,17 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
       e.preventDefault();
         try {
           //TODO remove old image when adding new one
+          let oldImageURL = null;
+
+          // Check if there is an old image URL
+          if (orgDataEdit && orgDataEdit.image) {
+            oldImageURL = orgDataEdit.image;
+          }
+
           let imageUploadResponse = ""
           if (image) {
              imageUploadResponse = await uploadImage(image);
             console.log("Image upload response:", imageUploadResponse);
-            if(orgDataEdit){
-              console.log(orgDataEdit.image,"image old")
-              
-            }
           }
           
             const mutationResponse = await editOrg({
@@ -50,7 +53,9 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
                image: imageUploadResponse,
               },
             });
-    
+            if (oldImageURL) {
+              await deleteImage(oldImageURL);
+            }
            // console.log("Mutation response:", mutationResponse);
             update()
             handleClose()
@@ -81,7 +86,16 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
         throw new Error('Image upload failed');
       }
     };
-   
+   // handle old image delete
+   const deleteImage = async (imageURL) => {
+    try {
+      // Make an HTTP request to your server to handle the image deletion
+      const response = await axios.post('http://localhost:4000/deleteImage', { imageURL });
+      console.log("Image deleted:", response.data);
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    }
+  };
   return (
     // TODO add the other propertys for editing and test fron end edit org
     <Modal show={show} onHide={handleClose}>
