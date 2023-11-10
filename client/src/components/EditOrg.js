@@ -28,7 +28,6 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
     const handleSubmit = async (e) => {
       e.preventDefault();
         try {
-          //TODO remove old image when adding new one
           let oldImageURL = null;
 
           // Check if there is an old image URL
@@ -42,7 +41,8 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
             console.log("Image upload response:", imageUploadResponse);
           }
           
-            const mutationResponse = await editOrg({
+            // const mutationResponse = 
+            await editOrg({
               variables: {
 
                 orgId: orgDataEdit? orgDataEdit._id : "",
@@ -96,8 +96,8 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
       console.error('Error deleting image:', error);
     }
   };
+  
   return (
-    // TODO add the other propertys for editing and test fron end edit org
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Org</Modal.Title>
@@ -118,7 +118,7 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
           </Form.Group>
           <Form.Label>Category</Form.Label>
       <Form.Select aria-label="Default select example" name="editcategory"  onChange={handleChange}>
-        
+        {/* TODO should users be able to add new categorys here? */}
       <option value="">Select a category</option> 
       {
         uniqueCategories.map((category, index) => (

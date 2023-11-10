@@ -232,7 +232,7 @@ org: async (parent, args) => {
         await Organization.findOneAndDelete({ _id: orgId });
       },
 
-      //TODO edit org info
+    
      editOrganization: async (orgId, newData) => {
         try {
           // Check if the organization with the given orgId exists
@@ -243,7 +243,6 @@ org: async (parent, args) => {
           }
       
           // Update the organization data with the new information
-          //TODO get update category to work
           organization.name = newData.name || organization.name;
           organization.description = newData.description || organization.description;
           organization.shortdescription = newData.shortdescription || organization.shortdescription;
