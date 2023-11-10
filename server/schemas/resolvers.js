@@ -232,28 +232,6 @@ org: async (parent, args) => {
         await Organization.findOneAndDelete({ _id: orgId });
       },
 
-      removeOrganization: async (parent, { orgId}, context) => {
-        // Check if the user is authenticated (optional)
-        
-        const fs = require('fs');
-        const path = require('path');
-        const organization = await Organization.findOne({ _id: orgId });
-        const uploadsFolderPath = path.join(__dirname, '../../', 'client', 'public', 'uploads');
-        if(organization.image){
-          const imageName = path.basename(organization.image);
-          const filePath = path.join(uploadsFolderPath, imageName);
-  
-          try {
-            fs.unlinkSync(filePath);
-            console.log(`File deleted.`);
-          } catch (err) {
-            console.error(`Error deleting the file:`, err);
-          }
-        
-        }
-        await Organization.findOneAndDelete({ _id: orgId });
-      },
-
       //TODO edit org info
      editOrganization: async (orgId, newData) => {
         try {
@@ -268,9 +246,9 @@ org: async (parent, args) => {
           //TODO get update category to work
           organization.name = newData.name || organization.name;
           organization.description = newData.description || organization.description;
-          organization.shortdescription = newData.description || organization.shortdescription;
-          organization.category = newData.description || organization.category;
-          organization.image = newData.description || organization.image;
+          organization.shortdescription = newData.shortdescription || organization.shortdescription;
+          organization.category = newData.category || organization.category;
+          organization.image = newData.image || organization.image;
           // Add more fields as needed
       
           // Save the updated organization

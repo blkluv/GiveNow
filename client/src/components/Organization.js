@@ -86,7 +86,10 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
 
   if(!loading){
     let organizations = data.organizations;
-
+    let uniqueCategories = []
+    if (data && data.organizations) {
+      uniqueCategories = [...new Set(data.organizations.map((org) => org.category))];
+    }
     // Apply search query filter if available
     if (searchQuery) {
       organizations = organizations.filter(org =>
@@ -128,7 +131,7 @@ refetch()
   return (
     <div>
       {/* Modal Component for editing ORg */}
-      <EditOrganizationModal show={show} handleClose={handleClose} orgDataEdit={orgDataEdit} update={refetch} />
+      <EditOrganizationModal show={show} handleClose={handleClose} orgDataEdit={orgDataEdit} update={refetch} uniqueCategories={uniqueCategories}/>
       {/* shows stripecontatiner when donate button is clicked */}
       {showItem ? (
         
