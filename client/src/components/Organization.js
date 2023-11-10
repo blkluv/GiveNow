@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StripeContainer from "../components/StripeContainer";
 import { GET_ORGANIZATIONS } from "../utils/queries";
-import { REMOVE_ORGANIZATION, EDIT_ORGANIZATION } from "../utils/mutations";
+import { REMOVE_ORGANIZATION} from "../utils/mutations";
 import { useQuery } from '@apollo/client';
 import './styles/Organization.css'
 import SingleOrg from "./SingleOrg";
@@ -49,7 +49,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
     setAmount(price);
     setItemName(name);
     setItemDescription(description);
-    console.log(orgid,"==== org id here =====")
+    //console.log(orgid,"==== org id here =====")
     setOrgID(orgid);
   };
 
@@ -112,25 +112,23 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
   
       if (confirmed) {
           try {
-              const mutationResponse = await removeOrg({
+              //const mutationResponse = 
+              await removeOrg({
                   variables: {
                       orgId: orgid
                   }
               });
-              console.log("Mutation response:", mutationResponse);
+              //console.log("Mutation response:", mutationResponse);
 refetch()
           } catch (err) {
               console.error(err);
           }
       }
   };
-  const starteditOrg = async (orgid) => {
-    console.log(orgid)
-  }
   return (
     <div>
       {/* Modal Component for editing ORg */}
-      <EditOrganizationModal show={show} handleClose={handleClose} orgDataEdit={orgDataEdit} />
+      <EditOrganizationModal show={show} handleClose={handleClose} orgDataEdit={orgDataEdit} update={refetch} />
       {/* shows stripecontatiner when donate button is clicked */}
       {showItem ? (
         
