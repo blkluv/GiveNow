@@ -44,6 +44,7 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
   }, [searchQuery]);
 
   // Function to set both amount, itemName, itemDescription, and OrgID
+  // TODO fix bug when nno amount entered continues to checkout
   const setItem = (name, price, description, orgid) => {
     setShowItem(true);
     setAmount(price);
