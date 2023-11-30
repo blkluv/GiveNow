@@ -46,6 +46,10 @@ const Organization = ({ selectedCategory, setShowItem, showItem, searchQuery}) =
   // Function to set both amount, itemName, itemDescription, and OrgID
   // TODO fix bug when nno amount entered continues to checkout
   const setItem = (name, price, description, orgid) => {
+    if(!price){
+      alert("enter a valid amount to donate")
+      return
+    }
     setShowItem(true);
     setAmount(price);
     setItemName(name);

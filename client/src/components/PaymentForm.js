@@ -12,11 +12,24 @@ const styles = {
   form:{
     display: 'flex',
     flexDirection: 'column',
-    width: "100%",
+    
     border: "1px solid black",
     padding: '1%',
-    borderRadius: "1%"
-  }
+    borderRadius: "4px",
+    margin: "5%"
+  },
+  additionalInfo: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  input: {
+    marginTop: '10px',
+    padding: '10px',
+    width: '98%', // Adjust the width as needed
+    boxSizing: 'border-box',
+    fontSize: '16px',
+  },
 }
 
 
@@ -48,8 +61,12 @@ const stripe = useStripe()
 const elements = useElements()
 // email state and handleing
 const [email, setEmail] = useState("")
+const [nameoncard, setNameOnCard] = useState("")
 const handleEmailChange = (event) => {
   setEmail(event.target.value);
+};
+const handleNameOnCardChange = (event) => {
+  setNameOnCard(event.target.value);
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -68,6 +85,7 @@ const handleSubmit = async (e) => {
       console.log("Stripe payment method ID:", id);
       console.log("email", email)
       console.log("amount", props)
+      console.log("name on card", nameoncard)
 
       const response = await axios.post("http://localhost:4000/payment", {
         amount: props.amount,
@@ -125,14 +143,27 @@ function formatAmount(amount) {
     
   </div>
 </fieldset>
-<input
-        type="email"
-        title="email"
-        placeholder="Enter your email"
-        required={true}
-        value={email}
-        onChange={handleEmailChange}
-      />
+<div style={styles.additionalInfo}>
+            <input
+              type="text"
+              title="nameOnCard"
+              placeholder="Name on card"
+              required={true}
+              value={nameoncard}
+              onChange={handleNameOnCardChange}
+              style={styles.input}
+            />
+
+            <input
+              type="email"
+              title="email"
+              placeholder="Enter your email"
+              required={true}
+              value={email}
+              onChange={handleEmailChange}
+              style={styles.input}
+            />
+          </div>
 <button className="button2">Pay</button>
 </form>
 :
@@ -145,3 +176,4 @@ function formatAmount(amount) {
   );
   
 }
+
