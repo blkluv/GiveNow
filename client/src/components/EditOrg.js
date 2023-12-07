@@ -39,6 +39,9 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
           if (image) {
              imageUploadResponse = await uploadImage(image);
             console.log("Image upload response:", imageUploadResponse);
+            if (oldImageURL) {
+              await deleteImage(oldImageURL);
+            }
           }
           
             // const mutationResponse = 
@@ -53,9 +56,7 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
                image: imageUploadResponse,
               },
             });
-            if (oldImageURL) {
-              await deleteImage(oldImageURL);
-            }
+
            // console.log("Mutation response:", mutationResponse);
             update()
             handleClose()
@@ -88,6 +89,8 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
     };
    // handle old image delete
    const deleteImage = async (imageURL) => {
+    console.log(imageURL,"here dumbo")
+  if(imageURL){
     try {
       // Make an HTTP request to your server to handle the image deletion
       const response = await axios.post('http://localhost:4000/deleteImage', { imageURL });
@@ -95,6 +98,7 @@ function EditOrganizationModal({ show, handleClose, orgDataEdit, update, uniqueC
     } catch (error) {
       console.error('Error deleting image:', error);
     }
+  }
   };
   
   return (
