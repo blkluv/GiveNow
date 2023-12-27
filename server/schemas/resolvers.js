@@ -200,7 +200,7 @@ org: async (parent, args) => {
       
       
       
-      
+      // TODO add updated corps after adding
       makeOrganization: async (parent, { name, description, amountraised, category, image, shortdescription }, context) => {
         // Check if the user is authenticated (optional)
         

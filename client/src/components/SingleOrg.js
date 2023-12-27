@@ -10,6 +10,15 @@ const divStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
 };
+const styles = {
+  descrptionP: {
+    overflow: "hidden", /* or auto, scroll, visible */
+    //whiteSpace: "nowrap", /* Prevents text from wrapping to the next line */
+    textOverflow: "ellipsis", /* Display an ellipsis (...) for clipped text */
+    maxWidth: "100%",
+    wordBreak: "break-all"
+  }
+}
 function SingleOrg(props) {
   //  console.log(props,"hi kai")
   const { loading, data, error, refetch } = useQuery(GET_ORGANIZATION, {
@@ -50,6 +59,7 @@ function SingleOrg(props) {
   const organization = data?.org; 
   // console.log(organization,"---------here")
   // use info from props and data from query
+// TODO test responsivness with long values for orgs in small View ports
   return (
     <Modal
       {...props}
@@ -65,7 +75,7 @@ function SingleOrg(props) {
       <Modal.Body>
       <h4>Amount Raised: {(organization.amountraised / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h4>
 
-        <p>{props.org.description}</p>
+        <p style={styles.descrptionP}>{props.org.description}</p>
         <h4>Top Donators </h4>
         {organization.topDonors.length ?(
         <ul>

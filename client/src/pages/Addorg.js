@@ -11,7 +11,7 @@ import axios from 'axios';
 const Addorg = () => {
   const { loading: loading2, data: data2 } = useQuery(GET_ME);
     const [makeOrganization] = useMutation(MAKE_ORGANIZATION);
-    const { loading, data, error } = useQuery(GET_ORGANIZATIONS2)
+    const { loading, data, error, refetch } = useQuery(GET_ORGANIZATIONS2)
     const [formState, setFormState] = useState({
         name: "",
         description: "",
@@ -55,6 +55,8 @@ const Addorg = () => {
               });
       
               console.log("Mutation response:", mutationResponse);
+              alert("Org added")
+              refetch();
             } else {
               console.error("Image is null or invalid.");
             }
